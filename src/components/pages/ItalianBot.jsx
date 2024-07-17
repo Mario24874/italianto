@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './ItalianBot.css';
 import botIcon from '../../assets/bot-icon.png'; // Asegúrate de que la ruta sea correcta
 
@@ -8,6 +9,7 @@ const ItalianBot = () => {
     { text: 'Ciao, sono ItalianBot. Come posso aiutarti?', fromBot: true }
   ]);
   const messagesEndRef = useRef(null);
+  const navigate = useNavigate();
 
   const toggleChat = () => setIsOpen(!isOpen);
 
@@ -59,7 +61,7 @@ const ItalianBot = () => {
             <button onClick={() => handleOptionClick('1')}>1. Informazioni sui corsi</button>
             <button onClick={() => handleOptionClick('2')}>2. Orari delle lezioni</button>
             <button onClick={() => handleOptionClick('3')}>3. Preventivo</button>
-            <button onClick={() => window.location.href = '/contatto'}>Contattaci</button>
+            <button onClick={() => navigate('/contatto')}>Contattaci</button>
           </div>
         </div>
       )}
