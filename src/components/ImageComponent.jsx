@@ -8,7 +8,7 @@ function ImageComponent() {
   const sliderRef = useRef(null);
 
   useEffect(() => {
-    // Simulando la carga de imágenes desde la carpeta 'images/media/img'
+    // Simulando la carga de imágenes desde la carpeta 'public/images/media/img'
     const imageList = [
       'Coliseo.jfif',
       'Coloseo.jfif',
@@ -24,7 +24,7 @@ function ImageComponent() {
     ];
 
     const loadedImages = imageList.map(img => ({
-      src: `/src/images/media/img/${img}`, // Usar una URL relativa
+      src: `/images/media/img/${img}`, // Usar una URL relativa a la carpeta public
       alt: img.split('.')[0]
     }));
 
@@ -72,7 +72,7 @@ function ImageComponent() {
       </div>
       <div className="slider-controls">
         <button onClick={() => setIsPaused(!isPaused)}>
-          {isPaused ? 'Gioco' : 'Pausa'}
+          {isPaused ? 'Play' : 'Pausa'}
         </button>
         <button onClick={() => setDirection(direction === 'left' ? 'right' : 'left')}>
           {direction === 'left' ? 'Destra' : 'Sinistra'}
