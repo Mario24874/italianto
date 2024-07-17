@@ -100,6 +100,7 @@ const Login = () => {
             onError={() => {
               setErrorMessage("Error al iniciar sesión con Google.");
             }}
+            clientId={process.env.VITE_GOOGLE_CLIENT_ID}
           />
           <button onClick={handleAppleLogin} className="social-button apple">
             <img src={appleIcon} alt="Apple" className="social-icon" />
