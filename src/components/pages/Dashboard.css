@@ -1,0 +1,83 @@
+/* src/components/pages/Dashboard.css */
+.dashboard-container {
+  display: flex;
+  background-color: none;
+  color: var(--text-color-light);
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+.dashboard-container.dark-mode {
+  background-color: none;
+  color: var(--text-color-dark);
+}
+
+.dashboard-content {
+  margin-left: 250px; /* Ancho del sidebar */
+  padding: 20px;
+}
+
+.sidebar.collapsed + .dashboard-content {
+  margin-left: 60px;
+}
+
+.dark-mode-toggle-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.dark-mode-toggle {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  cursor: pointer;
+}
+
+.dark-mode-toggle .switch-button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #707472;
+  border-radius: 34px;
+  transition: 0.4s;
+}
+
+.dark-mode-toggle .switch-button:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.4s;
+}
+
+.dark-mode-toggle .switch-button img {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 26px;
+  height: 26px;
+  transition: transform 0.4s;
+}
+
+.dark-mode-toggle.dark-mode .switch-button {
+  background-color: #f2f39c;
+}
+
+.dark-mode-toggle.dark-mode .switch-button:before {
+  transform: translateX(26px);
+}
+
+.dark-mode-toggle .switch-button img:first-child {
+  transform: translateX(0);
+}
+
+.dark-mode-toggle.dark-mode .switch-button img:first-child {
+  transform: translateX(26px);
+}

@@ -1,0 +1,83 @@
+/* src/components/pages/Contatto.css */
+.contatto-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 2px solid #ff0000;
+  background-color: #0000007c;
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+.contatto-container h2 {
+  text-align: center;
+  color: #1fb112;
+}
+
+.form-image-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+form {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: #1fb112;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #1fb112;
+  border-radius: 5px;
+  background-color: #ebe4e4;
+  color: #030303;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #ff0000;
+  outline: none;
+}
+
+.submit-button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #ff0000;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: #1fb112;
+}
+
+.image-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}

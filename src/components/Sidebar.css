@@ -1,0 +1,77 @@
+:root {
+  --sb-width: 80px;
+}
+
+.sidebar {
+  position: fixed;
+  inset: 0 auto 0 0;
+  padding: 1rem;
+  width: var(--sb-width);
+  background-image: linear-gradient(to right, #1ca118, #ffffff, #d63030);
+  transition: width 0.5s ease-in-out;
+}
+
+.sidebar.sb-expanded {
+  width: 250px;
+}
+
+nav {
+  height: 90%;
+}
+
+nav ul {
+  list-style: none;
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+  gap: 0.25rem;
+}
+
+nav li:last-child {
+  margin-top: auto;
+}
+
+nav a,
+nav button {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.625rem 0.875rem;
+  font-size: 1.25rem;
+  line-height: 1;
+  color: #000000;
+  text-decoration: none;
+  border-radius: 0.375rem;
+  transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+nav a.active,
+nav a:hover,
+nav a:focus-visible,
+nav button:hover,
+nav button:focus-visible {
+  outline: none;
+  color: #da2121;
+  background-color: #fff;
+}
+
+nav a span,
+nav button span {
+  font-size: 0.875rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+.sb-expanded nav a span,
+.sb-expanded nav button span {
+  opacity: 1;
+  visibility: visible;
+}
+
+.sb-expanded .bx-chevrons-right {
+  transform: rotate(180deg);
+}
