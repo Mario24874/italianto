@@ -7,7 +7,7 @@ import Home from './components/pages/Home';
 import Login from './components/pages/Login';
 import Register from './components/pages/Register';
 import Dashboard from './components/pages/Dashboard';
-import Contatto from './components/pages/Contatto'; // Asegúrate de que la ruta y el nombre sean correctos
+import Contatto from './components/pages/Contatto';
 import PrivateRoute from './components/PrivateRoute.jsx';
 import './App.css';
 
@@ -18,11 +18,11 @@ function App() {
         <Router>
           <div className="App">
             <Routes>
-              <Route exact path="/" element={<Home />} />
+              <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
-              <Route path="/contatto" element={<Contatto />} /> {/* Asegúrate de que la ruta sea correcta */}
+              <Route path="/contatto" element={<Contatto />} />
             </Routes>
           </div>
         </Router>

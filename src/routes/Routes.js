@@ -1,27 +1,26 @@
+// src/Routes.js
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import Login from '../components/pages/Login';
 import Register from '../components/pages/Register';
 import Dashboard from '../components/pages/Dashboard';
-import Home from '../components/pages/Home'; // Asegúrate de importar el componente Home
+import Home from '../components/pages/Home';
 
-function Routes() {
+function AppRoutes() {
   const { user } = useAuth();
 
   return (
     <Router>
-      <Switch>
-        <Route path="/login" component={Login} />
-        <Route path="/register" component={Register} />
-        <Route path="/dashboard">
-          {user ? <Dashboard /> : <Redirect to="/login" />}
-        </Route>
-        <Route path="/" exact component={Home} />
-        <Redirect to="/login" />
-      </Switch>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/dashboard" element={user ? <Dashboard /> : <Navigate to="/login" />} />
+        <Route path="/" element={<Home />} />
+        <Route path="*" element={<Navigate to="/login" />} />
+      </Routes>
     </Router>
   );
 }
 
-export default Routes;
+export default AppRoutes;
