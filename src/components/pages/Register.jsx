@@ -23,7 +23,6 @@ const Register = () => {
       setErrorMessage(error.message);
     } else {
       alert('Check your email for the confirmation link');
-      // Redirigir a la página deseada después del registro exitoso
       window.location.href = '/login'; // Cambia '/login' por la ruta a la que deseas redirigir
     }
   };
@@ -33,15 +32,12 @@ const Register = () => {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          access_token: credentialResponse.credential, // Enviar el token de acceso a Supabase
+          redirectTo: window.location.origin + '/dashboard',
         },
       });
 
       if (error) {
         setErrorMessage(error.message);
-      } else {
-        // Redirigir a la página deseada después del registro exitoso
-        window.location.href = '/dashboard'; // Cambia '/dashboard' por la ruta a la que deseas redirigir
       }
     } catch (error) {
       setErrorMessage("Error inesperado durante el registro.");
@@ -49,7 +45,12 @@ const Register = () => {
   };
 
   const handleAppleRegister = async () => {
-    const { user, error } = await supabase.auth.signInWithOAuth({ provider: 'apple' });
+    const { user, error } = await supabase.auth.signInWithOAuth({ 
+      provider: 'apple',
+      options: {
+        redirectTo: window.location.origin + '/dashboard',
+      },
+    });
     if (error) {
       alert(error.message);
     }

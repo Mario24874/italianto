@@ -44,14 +44,12 @@ const Login = () => {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          access_token: credentialResponse.credential, // Enviar el token de acceso a Supabase
+          redirectTo: window.location.origin + '/dashboard',
         },
       });
 
       if (error) {
         setErrorMessage(error.message);
-      } else {
-        navigate('/dashboard'); // Redirigir al dashboard después de iniciar sesión
       }
     } catch (error) {
       setErrorMessage("Error inesperado durante el inicio de sesión.");
@@ -60,7 +58,12 @@ const Login = () => {
 
   const handleAppleLogin = async () => {
     try {
-      await supabase.auth.signInWithOAuth({ provider: 'apple' });
+      await supabase.auth.signInWithOAuth({ 
+        provider: 'apple',
+        options: {
+          redirectTo: window.location.origin + '/dashboard',
+        },
+      });
     } catch (error) {
       setErrorMessage("Error al iniciar sesión con Apple.");
     }
