@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { supabase } from '../../supabaseClient'; // Asegúrate de que la ruta sea correcta
 import { GoogleLogin } from '@react-oauth/google';
-import Layout from '../Layout';
+import Layout from '../Layout.jsx';
 import './Register.css'; // Importa el archivo de estilos
 import googleIcon from '../../assets/google-icon.svg';
 import appleIcon from '../../assets/apple-icon.svg';

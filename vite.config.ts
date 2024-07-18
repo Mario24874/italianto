@@ -25,4 +25,7 @@ export default defineConfig({
       '/api': 'http://localhost:3000', // Ejemplo de proxy para API local
     },
   },
+  resolve: {
+    extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json']
+  }
 });

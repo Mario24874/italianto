@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import DashboardLayout from '../DashboardLayout';
+import DashboardLayout from '../DashboardLayout.jsx';
 import Sidebar from '../Sidebar';
-import { useTheme } from '../../contexts/ThemeContext';
+import { useTheme } from '../../contexts/ThemeContext.jsx';
 import moonIcon from '../../images/moon.svg';
 import sunnyIcon from '../../images/sunny.svg';
 import './Dashboard.css';

@@ -5,7 +5,7 @@ import Sections from '../Sections.jsx';
 import ImageComponent from '../ImageComponent.jsx';
 import MediaComponent from '../MediaComponent.jsx';
 import Footer from '../Footer.jsx';
-import ItalianBot from './ItalianBot'; // Importa el componente ItalianBot
+import ItalianBot from './ItalianBot.jsx'; // Importa el componente ItalianBot
 
 const Home = () => {
   return (

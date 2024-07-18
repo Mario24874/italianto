@@ -1,4 +1,3 @@
-// src/contexts/AuthContext.jsx
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { supabase } from '../supabaseClient'; // Asegúrate de que la ruta sea correcta
 
@@ -10,11 +9,11 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     const fetchSession = async () => {
-      const { data, error } = await supabase.auth.getSession();
+      const { data, error } = await supabase.auth.session();
       if (error) {
         console.error('Error fetching session:', error);
       }
-      setUser(data?.session?.user ?? null);
+      setUser(data?.user ?? null);
       setLoading(false);
     };
 

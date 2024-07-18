@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../../supabaseClient'; // Asegúrate de que la ruta sea correcta
 import { GoogleLogin } from '@react-oauth/google';
-import Layout from '../Layout';
+import Layout from '../Layout.jsx';
 import './Login.css';
 import googleIcon from '../../assets/google-icon.svg';
 import appleIcon from '../../assets/apple-icon.svg';
