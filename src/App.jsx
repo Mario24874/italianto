@@ -10,6 +10,8 @@ function App() {
     <ThemeProvider>
       <AuthProvider>
         <AppRoutes />
+        {/* Agregar el elemento aquí */}
+        <div id="your-element-id" className="example-class">Este es el elemento</div>
       </AuthProvider>
     </ThemeProvider>
   );
