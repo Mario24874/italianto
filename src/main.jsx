@@ -14,13 +14,3 @@ root.render(
     </GoogleOAuthProvider>
   </React.StrictMode>
 );
-
-// Agregar el código JavaScript aquí
-document.addEventListener('DOMContentLoaded', () => {
-  const element = document.getElementById('your-element-id');
-  if (element) {
-    console.log(element.classList);
-  } else {
-    console.error('Element not found');
-  }
-});
