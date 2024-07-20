@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { supabase } from '../../supabaseClient'; // Asegúrate de que la ruta sea correcta
-import { GoogleLogin } from '@react-oauth/google';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
 import Layout from '../Layout.jsx';
-import './Register.css'; // Importa el archivo de estilos
+import './Register.css';
 import googleIcon from '../../assets/google-icon.svg';
 import appleIcon from '../../assets/apple-icon.svg';
 
@@ -10,48 +10,19 @@ const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate();
+  const { register } = useAuth();
 
   const handleRegister = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      setErrorMessage('Las contraseñas no coinciden');
+      alert('Las contraseñas no coinciden');
       return;
     }
-    const { user, error } = await supabase.auth.signUp({ email, password });
-    if (error) {
-      setErrorMessage(error.message);
-    } else {
-      alert('Check your email for the confirmation link');
-      window.location.href = '/login'; // Cambia '/login' por la ruta a la que deseas redirigir
-    }
-  };
-
-  const handleGoogleRegisterSuccess = async (credentialResponse) => {
     try {
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: {
-          redirectTo: window.location.origin + '/dashboard',
-        },
-      });
-
-      if (error) {
-        setErrorMessage(error.message);
-      }
+      await register(email, password);
+      navigate('/login'); // Redirige al usuario a la página de inicio de sesión después del registro
     } catch (error) {
-      setErrorMessage("Error inesperado durante el registro.");
-    }
-  };
-
-  const handleAppleRegister = async () => {
-    const { user, error } = await supabase.auth.signInWithOAuth({ 
-      provider: 'apple',
-      options: {
-        redirectTo: window.location.origin + '/dashboard',
-      },
-    });
-    if (error) {
       alert(error.message);
     }
   };

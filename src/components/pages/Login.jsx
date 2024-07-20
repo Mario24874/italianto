@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { supabase } from '../../supabaseClient'; // Asegúrate de que la ruta sea correcta
+import { useAuth } from '../../contexts/AuthContext';
 import { GoogleLogin } from '@react-oauth/google';
 import Layout from '../Layout.jsx';
 import './Login.css';
@@ -12,60 +12,46 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   useEffect(() => {
-    const { data: { subscription: authListener } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        if (event === 'SIGNED_IN' && session) {
-          navigate('/dashboard');
-        }
-      }
-    );
+    const { data: authListener } = supabase.auth.onAuthStateChange(async (event, session) => {
+      if (event === 'SIGNED_IN') navigate('/dashboard');
+    });
 
-    return () => {
-      authListener?.unsubscribe();
-    };
+    return () => authListener.unsubscribe();
   }, [navigate]);
 
-  const handleLogin = async (e) => {
+  const handleLoginWithEmail = async (e) => {
     e.preventDefault();
     try {
-      const { error } = await supabase.auth.signInWithPassword({ email, password });
-      if (error) {
-        setErrorMessage(error.message);
-      }
+      await login(email, password);
     } catch (error) {
-      setErrorMessage("Error inesperado durante el inicio de sesión.");
+      setErrorMessage(error.message);
     }
   };
 
-  const handleGoogleLoginSuccess = async (credentialResponse) => {
+  const handleGoogleLogin = async () => {
     try {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
-        options: {
-          redirectTo: window.location.origin + '/dashboard',
-        },
+        options: { prompt: 'select_account' },
       });
-
-      if (error) {
-        setErrorMessage(error.message);
-      }
+      if (error) throw new Error(error.message);
     } catch (error) {
-      setErrorMessage("Error inesperado durante el inicio de sesión.");
+      setErrorMessage(error.message);
     }
   };
 
   const handleAppleLogin = async () => {
     try {
-      await supabase.auth.signInWithOAuth({ 
+      const { error } = await supabase.auth.signInWithOAuth({
         provider: 'apple',
-        options: {
-          redirectTo: window.location.origin + '/dashboard',
-        },
+        options: { prompt: 'select_account' },
       });
+      if (error) throw new Error(error.message);
     } catch (error) {
-      setErrorMessage("Error al iniciar sesión con Apple.");
+      setErrorMessage(error.message);
     }
   };
 
