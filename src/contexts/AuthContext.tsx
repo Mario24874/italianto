@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState, useLayoutEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { supabase } from '../supabaseClient'; // Asegúrate de que la ruta sea correcta
 
@@ -23,18 +23,18 @@ const AuthContext = createContext<AuthContextValue>({
 export const AuthProvider: React.FC = ({ children }) => {
   const [user, setUser] = useState<AuthContextValue['user']>(null);
   const [loading, setLoading] = useState(true);
-  const [shouldRedirect, setShouldRedirect] = useState(false); // Controla la redirección
+  const [redirectPath, setRedirectPath] = useState<string | null>(null); 
   const navigate = useNavigate();
   const location = useLocation();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const fetchSession = async () => {
       const { data, error } = await supabase.auth.getSession();
       if (error) console.error('Error fetching session:', error);
       setUser(data.session?.user ?? null);
       setLoading(false);
-      if (data.session?.user) {
-        setShouldRedirect(true); // Redirigir si hay sesión
+      if(data.session?.user){
+        setRedirectPath('/dashboard'); // Redirigir si hay sesión
       }
     };
 
@@ -45,7 +45,7 @@ export const AuthProvider: React.FC = ({ children }) => {
         setUser(session?.user ?? null);
         setLoading(false);
         if (session?.user) {
-          setShouldRedirect(true); // Redirigir si hay sesión
+          setRedirectPath('/dashboard'); // Redirigir si hay sesión
         }
       }
     );
@@ -55,17 +55,15 @@ export const AuthProvider: React.FC = ({ children }) => {
     };
   }, []); // Dependencias vacías para que se ejecute solo una vez
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     // Lógica de redirección condicional
-    if (!loading && shouldRedirect) {
-      if (location.pathname !== '/dashboard') {
-        navigate('/dashboard');
-      }
-      setShouldRedirect(false); // Reiniciar el estado después de redirigir
+    if (!loading && redirectPath) {
+      navigate(redirectPath);
+      setRedirectPath(null); // Reiniciar la ruta después de redirigir
     } else if (!loading && !user && location.pathname !== '/login') {
       navigate('/login');
     }
-  }, [navigate, location, loading, shouldRedirect, user]); // Dependencias para controlar la redirección
+  }, [loading, redirectPath, navigate, user, location]); // Dependencias para controlar la redirección
 
   const loginWithGoogle = async () => {
     try {
