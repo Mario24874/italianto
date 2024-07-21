@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Importa useNavigate
+import { useNavigate, useLocation } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
 
 const AuthContext = createContext();
@@ -7,7 +7,8 @@ const AuthContext = createContext();
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate(); // Inicializa useNavigate
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const fetchSession = async () => {
@@ -21,22 +22,26 @@ export function AuthProvider({ children }) {
 
     fetchSession();
 
-    const { data: authListener } = supabase.auth.onAuthStateChange(async (event, session) => {
-      setUser(session?.user ?? null);
-      setLoading(false);
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      async (event, session) => {
+        setUser(session?.user ?? null);
+        setLoading(false);
 
-      // Redirigir al dashboard después del inicio de sesión exitoso
-      if (event === 'SIGNED_IN' && session?.user) {
-        navigate('/dashboard'); 
+        if (event === 'SIGNED_IN' && session?.user) {
+          // Retrasar la redirección hasta que las rutas estén listas
+          setTimeout(() => {
+            navigate('/dashboard');
+          }, 0);
+        }
       }
-    });
+    );
 
     return () => {
       if (authListener && authListener.unsubscribe) {
         authListener.unsubscribe();
       }
     };
-  }, [navigate]); // Agregar navigate como dependencia
+  }, [navigate, location]); // Agregar 'location' como dependencia
 
   const login = async (email, password) => {
     const { user, error } = await supabase.auth.signIn({ email, password });
