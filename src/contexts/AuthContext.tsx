@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState, useLayoutEffect } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { supabase } from '../supabaseClient'; // Asegúrate de que la ruta sea correcta
 
@@ -27,13 +27,13 @@ export const AuthProvider: React.FC = ({ children }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const fetchSession = async () => {
       const { data, error } = await supabase.auth.getSession();
       if (error) console.error('Error fetching session:', error);
       setUser(data.session?.user ?? null);
       setLoading(false);
-      if(data.session?.user){
+      if (data.session?.user) {
         setRedirectPath('/dashboard'); // Redirigir si hay sesión
       }
     };
@@ -55,7 +55,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     };
   }, []); // Dependencias vacías para que se ejecute solo una vez
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     // Lógica de redirección condicional
     if (!loading && redirectPath) {
       navigate(redirectPath);
