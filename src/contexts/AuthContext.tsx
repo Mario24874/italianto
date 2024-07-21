@@ -51,7 +51,9 @@ export const AuthProvider: React.FC = ({ children }) => {
     );
 
     return () => {
-      authListener.unsubscribe();
+      if (authListener && authListener.unsubscribe) {
+        authListener.unsubscribe();
+      }
     };
   }, []); // Dependencias vacías para que se ejecute solo una vez
 

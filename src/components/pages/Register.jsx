@@ -79,7 +79,7 @@ const Register = () => {
             onError={() => {
               setErrorMessage("Error al registrarse con Google.");
             }}
-            clientId={process.env.VITE_GOOGLE_CLIENT_ID}
+            clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}
           />
           <button onClick={handleAppleRegister} className="social-button apple">
             <img src={appleIcon} alt="Apple" className="social-icon" />
