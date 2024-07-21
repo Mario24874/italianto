@@ -24,21 +24,15 @@ const Login = () => {
     }
   };
 
-  const handleGoogleLoginSuccess = async (credentialResponse) => {
+  const handleGoogleLogin = async () => {
     try {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
-        options: {
-          accessToken: credentialResponse.credential,
-        },
+        options: { prompt: 'select_account' },
       });
-
-      if (error) {
-        setErrorMessage(error.message);
-      } 
-      // No es necesario manejar la redirección aquí, se hace en AuthContext
+      if (error) throw new Error(error.message);
     } catch (error) {
-      setErrorMessage("Error inesperado durante el inicio de sesión.");
+      setErrorMessage(error.message);
     }
   };
 
