@@ -1,6 +1,5 @@
-// src/App.jsx
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import { ThemeProvider } from './contexts/ThemeContext';
 import Home from './components/pages/Home';
@@ -23,6 +22,7 @@ function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
               <Route path="/contatto" element={<Contatto />} />
+              <Route path="*" element={<Navigate to="/login" />} />
             </Routes>
           </div>
         </Router>
