@@ -1,4 +1,3 @@
-// AuthContext.tsx
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { supabase } from '../supabaseClient'; // Asegúrate de que la ruta sea correcta
@@ -24,6 +23,7 @@ const AuthContext = createContext<AuthContextValue>({
 export const AuthProvider: React.FC = ({ children }) => {
   const [user, setUser] = useState<AuthContextValue['user']>(null);
   const [loading, setLoading] = useState(true);
+  const [shouldRedirect, setShouldRedirect] = useState(false); // Controla la redirección
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -32,7 +32,10 @@ export const AuthProvider: React.FC = ({ children }) => {
       const { data, error } = await supabase.auth.getSession();
       if (error) console.error('Error fetching session:', error);
       setUser(data.session?.user ?? null);
-      setLoading(false); // Actualiza el estado de carga
+      setLoading(false);
+      if (data.session?.user) {
+        setShouldRedirect(true); // Redirigir si hay sesión
+      }
     };
 
     fetchSession();
@@ -40,14 +43,9 @@ export const AuthProvider: React.FC = ({ children }) => {
     const { data: authListener } = supabase.auth.onAuthStateChange(
       async (event, session) => {
         setUser(session?.user ?? null);
-        setLoading(false); // Actualiza el estado de carga
-
-        if (event === 'SIGNED_IN' && session?.user) {
-          setTimeout(() => {
-            navigate('/dashboard'); // Redirige después del inicio de sesión exitoso
-          }, 0); 
-        } else if (event === 'SIGNED_OUT') {
-          navigate('/login'); // Redirige al logout si no hay sesión
+        setLoading(false);
+        if (session?.user) {
+          setShouldRedirect(true); // Redirigir si hay sesión
         }
       }
     );
@@ -55,7 +53,19 @@ export const AuthProvider: React.FC = ({ children }) => {
     return () => {
       authListener.unsubscribe();
     };
-  }, [navigate, location]);
+  }, []); // Dependencias vacías para que se ejecute solo una vez
+
+  useEffect(() => {
+    // Lógica de redirección condicional
+    if (!loading && shouldRedirect) {
+      if (location.pathname !== '/dashboard') {
+        navigate('/dashboard');
+      }
+      setShouldRedirect(false); // Reiniciar el estado después de redirigir
+    } else if (!loading && !user && location.pathname !== '/login') {
+      navigate('/login');
+    }
+  }, [navigate, location, loading, shouldRedirect, user]); // Dependencias para controlar la redirección
 
   const loginWithGoogle = async () => {
     try {
