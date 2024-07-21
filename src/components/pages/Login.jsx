@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { GoogleLogin } from '@react-oauth/google';
@@ -6,7 +6,7 @@ import Layout from '../Layout.jsx';
 import './Login.css';
 import googleIcon from '../../assets/google-icon.svg';
 import appleIcon from '../../assets/apple-icon.svg';
-import { supabase } from '../../supabaseClient'; // Importa supabase
+import { supabase } from '../../supabaseClient';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -14,14 +14,6 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
   const { login } = useAuth();
-
-  useEffect(() => {
-    const { data: authListener } = supabase.auth.onAuthStateChange(async (event, session) => {
-      if (event === 'SIGNED_IN') navigate('/dashboard');
-    });
-
-    return () => authListener.unsubscribe();
-  }, [navigate]);
 
   const handleLoginWithEmail = async (e) => {
     e.preventDefault();
@@ -32,15 +24,21 @@ const Login = () => {
     }
   };
 
-  const handleGoogleLogin = async () => {
+  const handleGoogleLoginSuccess = async (credentialResponse) => {
     try {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
-        options: { prompt: 'select_account' },
+        options: {
+          accessToken: credentialResponse.credential,
+        },
       });
-      if (error) throw new Error(error.message);
+
+      if (error) {
+        setErrorMessage(error.message);
+      } 
+      // No es necesario manejar la redirección aquí, se hace en AuthContext
     } catch (error) {
-      setErrorMessage(error.message);
+      setErrorMessage("Error inesperado durante el inicio de sesión.");
     }
   };
 
@@ -55,7 +53,7 @@ const Login = () => {
       setErrorMessage(error.message);
     }
   };
-
+  
   return (
     <Layout>
       <div className="login-container">

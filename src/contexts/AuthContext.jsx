@@ -1,11 +1,13 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { supabase } from '../supabaseClient'; // Asegúrate de que la ruta sea correcta
+import { useNavigate } from 'react-router-dom'; // Importa useNavigate
+import { supabase } from '../supabaseClient';
 
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate(); // Inicializa useNavigate
 
   useEffect(() => {
     const fetchSession = async () => {
@@ -22,6 +24,11 @@ export function AuthProvider({ children }) {
     const { data: authListener } = supabase.auth.onAuthStateChange(async (event, session) => {
       setUser(session?.user ?? null);
       setLoading(false);
+
+      // Redirigir al dashboard después del inicio de sesión exitoso
+      if (event === 'SIGNED_IN' && session?.user) {
+        navigate('/dashboard'); 
+      }
     });
 
     return () => {
@@ -29,7 +36,7 @@ export function AuthProvider({ children }) {
         authListener.unsubscribe();
       }
     };
-  }, []);
+  }, [navigate]); // Agregar navigate como dependencia
 
   const login = async (email, password) => {
     const { user, error } = await supabase.auth.signIn({ email, password });
