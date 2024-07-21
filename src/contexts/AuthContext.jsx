@@ -31,6 +31,22 @@ export function AuthProvider({ children }) {
     };
   }, []);
 
+  const login = async (email, password) => {
+    const { user, error } = await supabase.auth.signIn({ email, password });
+    if (error) {
+      throw new Error(error.message);
+    }
+    setUser(user);
+  };
+
+  const register = async (email, password) => {
+    const { user, error } = await supabase.auth.signUp({ email, password });
+    if (error) {
+      throw new Error(error.message);
+    }
+    setUser(user);
+  };
+
   const logout = async () => {
     const { error } = await supabase.auth.signOut();
     if (error) {
@@ -43,6 +59,8 @@ export function AuthProvider({ children }) {
   const value = {
     user,
     loading,
+    login,
+    register,
     logout,
   };
 

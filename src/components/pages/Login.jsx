@@ -6,6 +6,7 @@ import Layout from '../Layout.jsx';
 import './Login.css';
 import googleIcon from '../../assets/google-icon.svg';
 import appleIcon from '../../assets/apple-icon.svg';
+import { supabase } from '../../supabaseClient'; // Importa supabase
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -60,7 +61,7 @@ const Login = () => {
       <div className="login-container">
         <h2>Accedi</h2>
         {errorMessage && <p className="error-message">{errorMessage}</p>}
-        <form onSubmit={handleLogin}>
+        <form onSubmit={handleLoginWithEmail}>
           <div className="form-group">
             <label>Email:</label>
             <input
@@ -85,7 +86,7 @@ const Login = () => {
         </form>
         <div className="social-login">
           <GoogleLogin
-            onSuccess={handleGoogleLoginSuccess}
+            onSuccess={handleGoogleLogin}
             onError={() => {
               setErrorMessage("Error al iniciar sesión con Google.");
             }}
