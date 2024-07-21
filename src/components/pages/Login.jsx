@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from '../../contexts/AuthContext.tsx';
 import { GoogleLogin } from '@react-oauth/google';
 import Layout from '../Layout.jsx';
 import './Login.css';
