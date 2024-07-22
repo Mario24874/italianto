@@ -1,4 +1,3 @@
-// App.jsx
 import React from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import { ThemeProvider } from './contexts/ThemeContext';
@@ -13,16 +12,16 @@ import './App.css';
 function App() {
   return (
     <ThemeProvider> 
-        <div className="App">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
-            <Route path="/contatto" element={<Contatto />} />
-            <Route path="*" element={<Navigate to="/login" />} />
-          </Routes>
-        </div>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+          <Route path="/contatto" element={<Contatto />} />
+          <Route path="*" element={<Navigate to="/login" />} />
+        </Routes>
+      </div>
     </ThemeProvider>
   );
 }

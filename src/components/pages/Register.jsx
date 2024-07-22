@@ -23,7 +23,6 @@ const Register = () => {
     }
     try {
       await register(email, password);
-      navigate('/login'); // Redirige al usuario a la página de inicio de sesión después del registro
     } catch (error) {
       setErrorMessage(error.message);
     }

@@ -18,7 +18,6 @@ const Login = () => {
     e.preventDefault();
     try {
       await login(email, password);
-      navigate('/dashboard'); // Redirige al usuario a la página de dashboard después del inicio de sesión
     } catch (error) {
       setErrorMessage(error.message);
     }

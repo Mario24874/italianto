@@ -71,6 +71,7 @@ export const AuthProvider: React.FC = ({ children }) => {
       const { data, error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) throw error;
       setUser(data.user);
+      navigate('/dashboard'); // Redirige al dashboard después del inicio de sesión
     } catch (error) {
       throw new Error((error as any).message);
     }
@@ -81,6 +82,7 @@ export const AuthProvider: React.FC = ({ children }) => {
       const { data, error } = await supabase.auth.signUp({ email, password });
       if (error) throw error;
       // No se establece el usuario aquí porque Supabase maneja la confirmación por correo electrónico
+      navigate('/login'); // Redirige al usuario a la página de inicio de sesión después del registro
     } catch (error) {
       throw new Error((error as any).message);
     }
