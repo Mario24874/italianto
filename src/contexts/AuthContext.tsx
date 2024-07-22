@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState, useLayoutEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { supabase } from '../supabaseClient'; // Asegúrate de que la ruta sea correcta
+import { supabase } from '../supabaseClient';
 
 interface AuthContextValue {
   user: {
@@ -16,25 +16,34 @@ interface AuthContextValue {
 const AuthContext = createContext<AuthContextValue>({
   user: null,
   loading: true,
-  loginWithGoogle: async () => {},
-  logout: async () => {},
+  loginWithGoogle: async () => { },
+  logout: async () => { },
 });
 
 export const AuthProvider: React.FC = ({ children }) => {
   const [user, setUser] = useState<AuthContextValue['user']>(null);
   const [loading, setLoading] = useState(true);
-  const [redirectPath, setRedirectPath] = useState<string | null>(null); 
+  const [redirectPath, setRedirectPath] = useState<string | null>(null);
   const navigate = useNavigate();
   const location = useLocation();
 
-  useEffect(() => {
+  useLayoutEffect(() => { // Usamos useLayoutEffect para evitar conflictos con React Router
     const fetchSession = async () => {
-      const { data, error } = await supabase.auth.getSession();
-      if (error) console.error('Error fetching session:', error);
-      setUser(data.session?.user ?? null);
-      setLoading(false);
-      if (data.session?.user) {
-        setRedirectPath('/dashboard'); // Redirigir si hay sesión
+      try {
+        const { data, error } = await supabase.auth.getSession();
+        if (error) throw error; // Lanza el error para manejarlo en el catch
+
+        setUser(data.session?.user ?? null);
+        if (data.session?.user) {
+          setRedirectPath('/dashboard');
+        } else if (!data.session?.user && location.pathname !== '/login') {
+          setRedirectPath('/login'); // Redirige al login si no hay sesión
+        }
+      } catch (error) {
+        console.error('Error fetching session:', error);
+        // Aquí puedes manejar el error de alguna manera, por ejemplo, mostrando un mensaje al usuario
+      } finally {
+        setLoading(false); // Actualizar el estado de carga en cualquier caso
       }
     };
 
@@ -44,28 +53,26 @@ export const AuthProvider: React.FC = ({ children }) => {
       async (event, session) => {
         setUser(session?.user ?? null);
         setLoading(false);
-        if (session?.user) {
-          setRedirectPath('/dashboard'); // Redirigir si hay sesión
+
+        if (event === 'SIGNED_IN') {
+          setRedirectPath('/dashboard');
+        } else if (event === 'SIGNED_OUT') {
+          setRedirectPath('/login');
         }
       }
     );
 
     return () => {
-      if (authListener && authListener.unsubscribe) {
-        authListener.unsubscribe();
-      }
+      authListener.unsubscribe();
     };
-  }, []); // Dependencias vacías para que se ejecute solo una vez
+  }, []);
 
-  useEffect(() => {
-    // Lógica de redirección condicional
+  useLayoutEffect(() => { // useLayoutEffect para redirigir de forma segura
     if (!loading && redirectPath) {
       navigate(redirectPath);
       setRedirectPath(null); // Reiniciar la ruta después de redirigir
-    } else if (!loading && !user && location.pathname !== '/login') {
-      navigate('/login');
     }
-  }, [loading, redirectPath, navigate, user, location]); // Dependencias para controlar la redirección
+  }, [loading, redirectPath, navigate]);
 
   const loginWithGoogle = async () => {
     try {
@@ -80,6 +87,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     try {
       await supabase.auth.signOut();
       setUser(null);
+      setRedirectPath('/login'); // Redirigir al login después de cerrar sesión
     } catch (error) {
       console.error(error);
     }
@@ -91,6 +99,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+
 
 export const useAuth = () => {
   return useContext(AuthContext);

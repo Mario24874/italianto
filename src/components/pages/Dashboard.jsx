@@ -34,29 +34,18 @@ const Dashboard = () => {
 
   return (
     <DashboardLayout>
-      <div className={`dashboard-container ${isDarkMode ? 'dark-mode' : ''}`}> 
+      <div className={`dashboard-container ${isDarkMode ? 'dark-mode' : ''}`}>
         <Sidebar />
         <div className="dashboard-content">
-          {isLoading ? ( 
-            <p>Cargando...</p> 
-          ) : (
-            <>
-              <h2>L'aula</h2>
-              <p>Benvenuti in classe!</p>
-
-              {/* Botón para cambiar el modo */}
-              <div className="dark-mode-toggle-container">
-                <button className={`dark-mode-toggle ${isDarkMode ? 'dark-mode' : ''}`} onClick={toggleDarkMode}>
-                  <div className="switch-button">
-                    <img src={isDarkMode ? sunnyIcon : moonIcon} alt="mode-icon" />
-                  </div>
-                </button>
-              </div>
-              
-
-              {/* Resto del contenido del dashboard */}
-            </>
-          )}
+          <h2>L'aula</h2>
+          <p>Benvenuti in classe!</p>
+          <div className="dark-mode-toggle-container">
+          <div className={`dark-mode-toggle ${isDarkMode ? 'dark-mode' : ''}`} onClick={toggleDarkMode}>
+            <div className="switch-button">
+              <img src={isDarkMode ? sunnyIcon : moonIcon} alt="mode-icon" />
+            </div>
+          </div>
+        </div>
         </div>
       </div>
     </DashboardLayout>
