@@ -48,13 +48,17 @@ export const AuthProvider: React.FC = ({ children }) => {
       async (event, session) => {
         setUser(session?.user ?? null);
         setLoading(false);
+
+        if (event === 'SIGNED_IN' && location.pathname === '/login') {
+          navigate('/dashboard');
+        }
       }
     );
 
     return () => {
       authListener.unsubscribe();
     };
-  }, []);
+  }, [location.pathname, navigate]);
 
   useEffect(() => {
     if (!loading) {
