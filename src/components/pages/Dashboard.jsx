@@ -9,28 +9,15 @@ import '../../App.css';
 
 const Dashboard = () => {
   const { isDarkMode, toggleDarkMode } = useTheme();
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simulación de carga de datos (reemplaza con tu lógica real)
-    const fetchData = async () => {
-      try {
-        // Aquí va tu lógica para cargar datos desde Supabase
-        // Ejemplo:
-        // const { data, error } = await supabase.from('tabla').select('*');
-        // if (error) throw error;
-        // ... procesar los datos ...
-
-      } catch (error) {
-        console.error('Error al cargar datos:', error);
-        // Manejo de errores (opcional): puedes mostrar un mensaje de error al usuario
-      } finally {
-        setIsLoading(false); // Indicar que la carga ha terminado (éxito o error)
-      }
-    };
-
-    fetchData(); // Llama a la función para cargar datos
-  }, []); // Ejecutar solo una vez al montar el componente
+    const app = document.querySelector('.App');
+    if (isDarkMode) {
+      app.classList.add('dark-mode');
+    } else {
+      app.classList.remove('dark-mode');
+    }
+  }, [isDarkMode]);
 
   return (
     <DashboardLayout>

@@ -5,7 +5,7 @@ import Layout from '../Layout.jsx';
 import './Register.css';
 import googleIcon from '../../assets/google-icon.svg';
 import appleIcon from '../../assets/apple-icon.svg';
-import { supabase } from '../../supabaseClient'; // Importa supabase
+import { supabase } from '../../supabaseClient';
 
 const Register = () => {
   const [email, setEmail] = useState('');
@@ -74,16 +74,13 @@ const Register = () => {
           <button type="submit" className="register-button">Registro</button>
         </form>
         <div className="social-register">
-          <GoogleLogin
-            onSuccess={handleGoogleRegister}
-            onError={() => {
-              setErrorMessage("Error al registrarse con Google.");
-            }}
-            clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}
-          />
+          <button onClick={handleGoogleRegister} className="social-button google">
+            <img src={googleIcon} alt="Google" className="social-icon" />
+            Registrarse con Google
+          </button>
           <button onClick={handleAppleRegister} className="social-button apple">
             <img src={appleIcon} alt="Apple" className="social-icon" />
-            Accedi con Apple
+            Registrarse con Apple
           </button>
         </div>
       </div>

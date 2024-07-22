@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext.tsx';
-import { GoogleLogin } from '@react-oauth/google';
 import Layout from '../Layout.jsx';
 import './Login.css';
 import googleIcon from '../../assets/google-icon.svg';
@@ -19,6 +18,7 @@ const Login = () => {
     e.preventDefault();
     try {
       await login(email, password);
+      navigate('/dashboard'); // Redirige al usuario a la página de dashboard después del inicio de sesión
     } catch (error) {
       setErrorMessage(error.message);
     }
@@ -47,7 +47,7 @@ const Login = () => {
       setErrorMessage(error.message);
     }
   };
-  
+
   return (
     <Layout>
       <div className="login-container">
@@ -77,13 +77,10 @@ const Login = () => {
           </button>
         </form>
         <div className="social-login">
-          <GoogleLogin
-            onSuccess={handleGoogleLogin}
-            onError={() => {
-              setErrorMessage("Error al iniciar sesión con Google.");
-            }}
-            clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}
-          />
+          <button onClick={handleGoogleLogin} className="social-button google">
+            <img src={googleIcon} alt="Google" className="social-icon" />
+            Accedi con Google
+          </button>
           <button onClick={handleAppleLogin} className="social-button apple">
             <img src={appleIcon} alt="Apple" className="social-icon" />
             Accedi con Apple

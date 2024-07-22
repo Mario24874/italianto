@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState, useLayoutEffect } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
 
@@ -9,41 +9,36 @@ interface AuthContextValue {
     // ...otros campos que necesites del usuario...
   } | null;
   loading: boolean;
-  loginWithGoogle: () => Promise<void>;
+  login: (email: string, password: string) => Promise<void>;
+  register: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextValue>({
   user: null,
   loading: true,
-  loginWithGoogle: async () => { },
-  logout: async () => { },
+  login: async () => {},
+  register: async () => {},
+  logout: async () => {},
 });
 
 export const AuthProvider: React.FC = ({ children }) => {
   const [user, setUser] = useState<AuthContextValue['user']>(null);
   const [loading, setLoading] = useState(true);
-  const [redirectPath, setRedirectPath] = useState<string | null>(null);
   const navigate = useNavigate();
   const location = useLocation();
 
-  useLayoutEffect(() => { // Usamos useLayoutEffect para evitar conflictos con React Router
+  useEffect(() => {
     const fetchSession = async () => {
       try {
         const { data, error } = await supabase.auth.getSession();
-        if (error) throw error; // Lanza el error para manejarlo en el catch
+        if (error) throw error;
 
         setUser(data.session?.user ?? null);
-        if (data.session?.user) {
-          setRedirectPath('/dashboard');
-        } else if (!data.session?.user && location.pathname !== '/login') {
-          setRedirectPath('/login'); // Redirige al login si no hay sesión
-        }
       } catch (error) {
         console.error('Error fetching session:', error);
-        // Aquí puedes manejar el error de alguna manera, por ejemplo, mostrando un mensaje al usuario
       } finally {
-        setLoading(false); // Actualizar el estado de carga en cualquier caso
+        setLoading(false);
       }
     };
 
@@ -53,12 +48,6 @@ export const AuthProvider: React.FC = ({ children }) => {
       async (event, session) => {
         setUser(session?.user ?? null);
         setLoading(false);
-
-        if (event === 'SIGNED_IN') {
-          setRedirectPath('/dashboard');
-        } else if (event === 'SIGNED_OUT') {
-          setRedirectPath('/login');
-        }
       }
     );
 
@@ -67,19 +56,33 @@ export const AuthProvider: React.FC = ({ children }) => {
     };
   }, []);
 
-  useLayoutEffect(() => { // useLayoutEffect para redirigir de forma segura
-    if (!loading && redirectPath) {
-      navigate(redirectPath);
-      setRedirectPath(null); // Reiniciar la ruta después de redirigir
+  useEffect(() => {
+    if (!loading) {
+      if (user && location.pathname === '/login') {
+        navigate('/dashboard');
+      } else if (!user && location.pathname !== '/login') {
+        navigate('/login');
+      }
     }
-  }, [loading, redirectPath, navigate]);
+  }, [loading, user, navigate, location]);
 
-  const loginWithGoogle = async () => {
+  const login = async (email: string, password: string) => {
     try {
-      const { error } = await supabase.auth.signInWithOAuth({ provider: 'google' });
-      if (error) throw new Error('Error durante la autenticación con Google');
+      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+      if (error) throw error;
+      setUser(data.user);
     } catch (error) {
-      console.error(error);
+      throw new Error((error as any).message);
+    }
+  };
+
+  const register = async (email: string, password: string) => {
+    try {
+      const { data, error } = await supabase.auth.signUp({ email, password });
+      if (error) throw error;
+      // No se establece el usuario aquí porque Supabase maneja la confirmación por correo electrónico
+    } catch (error) {
+      throw new Error((error as any).message);
     }
   };
 
@@ -87,19 +90,18 @@ export const AuthProvider: React.FC = ({ children }) => {
     try {
       await supabase.auth.signOut();
       setUser(null);
-      setRedirectPath('/login'); // Redirigir al login después de cerrar sesión
+      navigate('/login');
     } catch (error) {
       console.error(error);
     }
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, loginWithGoogle, logout }}>
+    <AuthContext.Provider value={{ user, loading, login, register, logout }}>
       {children}
     </AuthContext.Provider>
   );
 };
-
 
 export const useAuth = () => {
   return useContext(AuthContext);
