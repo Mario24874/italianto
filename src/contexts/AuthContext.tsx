@@ -60,8 +60,6 @@ export const AuthProvider: React.FC = ({ children }) => {
     if (!loading) {
       if (user && location.pathname === '/login') {
         navigate('/dashboard');
-      } else if (!user && location.pathname !== '/login') {
-        navigate('/login');
       }
     }
   }, [loading, user, navigate, location]);
@@ -71,7 +69,7 @@ export const AuthProvider: React.FC = ({ children }) => {
       const { data, error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) throw error;
       setUser(data.user);
-      navigate('/dashboard'); // Redirige al dashboard después del inicio de sesión
+      navigate('/dashboard');
     } catch (error) {
       throw new Error((error as any).message);
     }
@@ -81,8 +79,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     try {
       const { data, error } = await supabase.auth.signUp({ email, password });
       if (error) throw error;
-      // No se establece el usuario aquí porque Supabase maneja la confirmación por correo electrónico
-      navigate('/login'); // Redirige al usuario a la página de inicio de sesión después del registro
+      navigate('/login');
     } catch (error) {
       throw new Error((error as any).message);
     }
