@@ -18,7 +18,6 @@ const Login = () => {
     e.preventDefault();
     try {
       await login(email, password);
-      navigate('/dashboard'); // Redirigir al dashboard después de iniciar sesión manual
     } catch (error) {
       setErrorMessage(error.message);
     }
@@ -28,7 +27,7 @@ const Login = () => {
     try {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
-        options: { prompt: 'select_account' },
+        options: { redirectTo: window.location.origin + '/dashboard', prompt: 'select_account' },
       });
       if (error) throw new Error(error.message);
     } catch (error) {
@@ -40,7 +39,7 @@ const Login = () => {
     try {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'apple',
-        options: { prompt: 'select_account' },
+        options: { redirectTo: window.location.origin + '/dashboard', prompt: 'select_account' },
       });
       if (error) throw new Error(error.message);
     } catch (error) {

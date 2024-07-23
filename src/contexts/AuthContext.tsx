@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState, useLayoutEffect } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
 
@@ -9,21 +9,22 @@ interface AuthContextValue {
     // ...otros campos que necesites del usuario...
   } | null;
   loading: boolean;
-  loginWithGoogle: () => Promise<void>;
+  login: (email: string, password: string) => Promise<void>;
+  register: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextValue>({
   user: null,
   loading: true,
-  loginWithGoogle: async () => {},
+  login: async () => {},
+  register: async () => {},
   logout: async () => {},
 });
 
 export const AuthProvider: React.FC = ({ children }) => {
   const [user, setUser] = useState<AuthContextValue['user']>(null);
   const [loading, setLoading] = useState(true);
-  const [redirectPath, setRedirectPath] = useState<string | null>(null);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -34,13 +35,8 @@ export const AuthProvider: React.FC = ({ children }) => {
         if (error) throw error;
 
         setUser(data.session?.user ?? null);
-        setLoading(false);
-        if (data.session?.user && location.pathname === '/') { 
-          navigate('/dashboard');
-        }
       } catch (error) {
         console.error('Error fetching session:', error);
-        // Manejar el error aquí si es necesario
       } finally {
         setLoading(false);
       }
@@ -53,10 +49,8 @@ export const AuthProvider: React.FC = ({ children }) => {
         setUser(session?.user ?? null);
         setLoading(false);
 
-        if (event === 'SIGNED_IN') {
-          setRedirectPath('/dashboard');
-        } else if (event === 'SIGNED_OUT') {
-          setRedirectPath('/login');
+        if (event === 'SIGNED_IN' && location.pathname === '/login') {
+          navigate('/dashboard');
         }
       }
     );
@@ -64,21 +58,34 @@ export const AuthProvider: React.FC = ({ children }) => {
     return () => {
       authListener.unsubscribe();
     };
-  }, [navigate, location]); // Solo se ejecuta una vez al montar
+  }, [location.pathname, navigate]);
 
-  useLayoutEffect(() => {
-    if (!loading && redirectPath) {
-      navigate(redirectPath);
-      setRedirectPath(null);
-    } 
-  }, [loading, redirectPath, navigate]);
+  useEffect(() => {
+    if (!loading) {
+      if (user && location.pathname === '/login') {
+        navigate('/dashboard');
+      }
+    }
+  }, [loading, user, navigate, location]);
 
-  const loginWithGoogle = async () => {
+  const login = async (email: string, password: string) => {
     try {
-      const { error } = await supabase.auth.signInWithOAuth({ provider: 'google' });
-      if (error) throw new Error('Error durante la autenticación con Google');
+      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+      if (error) throw error;
+      setUser(data.user);
+      navigate('/dashboard');
     } catch (error) {
-      console.error(error);
+      throw new Error((error as any).message);
+    }
+  };
+
+  const register = async (email: string, password: string) => {
+    try {
+      const { data, error } = await supabase.auth.signUp({ email, password });
+      if (error) throw error;
+      navigate('/login');
+    } catch (error) {
+      throw new Error((error as any).message);
     }
   };
 
@@ -86,14 +93,14 @@ export const AuthProvider: React.FC = ({ children }) => {
     try {
       await supabase.auth.signOut();
       setUser(null);
-      setRedirectPath('/login');
+      navigate('/login');
     } catch (error) {
       console.error(error);
     }
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, loginWithGoogle, logout }}>
+    <AuthContext.Provider value={{ user, loading, login, register, logout }}>
       {children}
     </AuthContext.Provider>
   );
