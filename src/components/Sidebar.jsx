@@ -1,3 +1,4 @@
+// src/components/Sidebar.jsx
 import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext.tsx';
 import { useNavigate } from 'react-router-dom';
@@ -28,39 +29,33 @@ const Sidebar = () => {
             </a>
           </li>
           <li>
-            <a href="/explore">
-              <i className="bx bx-grid-alt"></i>
-              <span>Esplorare</span>
+            <a href="/lezione">
+              <i className="bx bx-book"></i>
+              <span>Lezione</span>
             </a>
           </li>
           <li>
-            <a href="/slideshow">
-              <i className="bx bx-carousel"></i>
-              <span>Presentazione</span>
+            <a href="/canzoni">
+              <i className="bx bx-music"></i>
+              <span>Canzoni</span>
             </a>
           </li>
           <li>
-            <a href="/collections">
-              <i className="bx bx-collection"></i>
-              <span>Collezioni</span>
+            <a href="/passatempi">
+              <i className="bx bx-game"></i>
+              <span>Passatempi</span>
             </a>
           </li>
           <li>
-            <a href="/downloads">
-              <i className="bx bx-cloud-download"></i>
-              <span>Download</span>
+            <a href="/informazioniinteressanti">
+              <i className="bx bx-info-circle"></i>
+              <span>Informazioni Interessanti</span>
             </a>
           </li>
           <li>
-            <a href="/messages">
-              <i className="bx bx-chat"></i>
-              <span>Messaggi</span>
-            </a>
-          </li>
-          <li>
-            <a href="/settings">
-              <i className="bx bx-cog"></i>
-              <span>Impostazioni</span>
+            <a href="/corsidalvivo">
+              <i className="bx bx-video"></i>
+              <span>Corsi dal Vivo</span>
             </a>
           </li>
           <li>

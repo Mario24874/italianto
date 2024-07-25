@@ -17,13 +17,13 @@ const ItalianBot = () => {
     let response;
     switch (option) {
       case '1':
-        response = 'I nostri corsi includono grammatica, conversazione, e cultura italiana.';
+        response = 'I nostri corsi includono lo sviluppo delle quattro competenze linguistiche e cultura italiana.';
         break;
       case '2':
-        response = 'Le lezioni sono disponibili dal lunedì al venerdì, dalle 9:00 alle 17:00.';
+        response = 'Le lezioni sono disponibili secondo la disponibilità.';
         break;
       case '3':
-        response = 'Per un preventivo, ti preghiamo di contattarci direttamente tramite il modulo di contatto.';
+        response = '- Assistita. - Consultiva. - On Line. - Presenziale.';
         break;
       default:
         response = 'Scusa, non ho capito la tua richiesta.';
@@ -60,7 +60,7 @@ const ItalianBot = () => {
           <div className="chat-options">
             <button onClick={() => handleOptionClick('1')}>1. Informazioni sui corsi</button>
             <button onClick={() => handleOptionClick('2')}>2. Orari delle lezioni</button>
-            <button onClick={() => handleOptionClick('3')}>3. Preventivo</button>
+            <button onClick={() => handleOptionClick('3')}>3. Modalità</button>
             <button onClick={() => navigate('/contatto')}>Contattaci</button>
           </div>
         </div>

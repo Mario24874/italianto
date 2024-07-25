@@ -81,3 +81,30 @@
 .dark-mode-toggle.dark-mode .switch-button img:first-child {
   transform: translateX(26px);
 }
+
+.section-links {
+  margin-top: 20px;
+}
+
+.section-links h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.section-links ul {
+  list-style: none;
+  padding: 0;
+}
+
+.section-links li {
+  margin-bottom: 5px;
+}
+
+.section-links a {
+  text-decoration: none;
+  color: #007bff;
+}
+
+.section-links a:hover {
+  text-decoration: underline;
+}

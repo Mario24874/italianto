@@ -12,7 +12,10 @@
   },
   "dependencies": {
     "@emailjs/browser": "^4.3.3",
+    "@emotion/react": "^11.13.0",
+    "@emotion/styled": "^11.13.0",
     "@fortawesome/fontawesome-free": "^6.5.2",
+    "@mui/material": "^5.16.4",
     "@react-oauth/google": "^0.12.1",
     "@supabase/supabase-js": "^2.44.3",
     "axios": "^1.7.2",
@@ -22,6 +25,7 @@
     "dotenv": "^16.4.5",
     "emailjs-com": "^3.2.0",
     "express": "^4.19.2",
+    "formik": "^2.4.6",
     "nodemailer": "^6.9.13",
     "qs": "^6.12.1",
     "react": "^18.2.0",
@@ -30,8 +34,10 @@
     "react-router-dom": "^6.24.1",
     "react-slick": "^0.30.2",
     "slick-carousel": "^1.8.1",
+    "stripe": "^16.4.0",
     "terser": "^5.31.0",
-    "video-react": "^0.16.0"
+    "video-react": "^0.16.0",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",
