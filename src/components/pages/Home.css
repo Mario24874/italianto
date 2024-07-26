@@ -1,0 +1,24 @@
+/* src/components/pages/Home.css */
+.home-container {
+    padding: 20px;
+    transition: background-color 0.5s ease, color 0.5s ease;
+  }
+  
+  .dark-mode {
+    background-color: #333;
+    color: #fff;
+  }
+  
+  .dark-mode-toggle {
+    cursor: pointer;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    transition: background-color 0.5s ease;
+  }
+  
+  .dark-mode-toggle:hover {
+    background-color: #0056b3;
+  }

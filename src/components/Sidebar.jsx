@@ -2,12 +2,14 @@
 import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext.tsx';
 import { useNavigate } from 'react-router-dom';
+import { useTheme } from '../contexts/ThemeContext'; // Importa el contexto del modo oscuro
 import './Sidebar.css';
 
 const Sidebar = () => {
   const { logout, user } = useAuth();
   const navigate = useNavigate();
   const [isExpanded, setIsExpanded] = useState(false);
+  const { isDarkMode } = useTheme(); // Obtén el estado del modo oscuro
 
   const handleLogout = async () => {
     await logout();
@@ -19,7 +21,7 @@ const Sidebar = () => {
   };
 
   return (
-    <aside className={`sidebar ${isExpanded ? 'sb-expanded' : ''}`}>
+    <aside className={`sidebar ${isExpanded ? 'sb-expanded' : ''} ${isDarkMode ? 'dark-mode' : ''}`}>
       <nav>
         <ul>
           <li>

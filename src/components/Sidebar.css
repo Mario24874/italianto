@@ -15,6 +15,25 @@
   width: 250px;
 }
 
+.sidebar.dark-mode {
+  background-image: linear-gradient(to right, #1a1a1a, #333333, #1a1a1a);
+  color: #fff;
+}
+
+.sidebar.dark-mode nav a,
+.sidebar.dark-mode nav button {
+  color: #fff;
+}
+
+.sidebar.dark-mode nav a.active,
+.sidebar.dark-mode nav a:hover,
+.sidebar.dark-mode nav a:focus-visible,
+.sidebar.dark-mode nav button:hover,
+.sidebar.dark-mode nav button:focus-visible {
+  color: #da2121;
+  background-color: #444;
+}
+
 nav {
   height: 90%;
 }
