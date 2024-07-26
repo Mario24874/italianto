@@ -1,4 +1,11 @@
-/* Estilos globales */
+/* src/App.css */
+:root {
+  --bg-color-light: #ffffff;
+  --text-color-light: #000000;
+  --bg-color-dark: #333333;
+  --text-color-dark: #ffffff;
+}
+
 .App {
   text-align: center;
   background-color: var(--bg-color-light);
@@ -8,7 +15,7 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  transition: background-image 0.5s ease;
+  transition: background-image 0.5s ease, background-color 0.5s ease, color 0.5s ease;
   background-image: url('lanterna.jpg');
   background-size: cover;
   background-position: center;

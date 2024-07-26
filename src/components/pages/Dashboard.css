@@ -4,13 +4,13 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: #f4f4f4;
+  background-color: #f4f4f456;
   color: #333;
   transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 .dashboard-container.dark-mode {
-  background-color: #333;
+  background-color: #33333369;
   color: #fff;
 }
 
