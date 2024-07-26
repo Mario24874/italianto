@@ -1,34 +1,23 @@
 // src/components/Header.jsx
-import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import logo from '../images/logo_Italianto.png';
-import sunnyIcon from '../images/sunny.svg';
-import moonIcon from '../images/moon.svg';
 import '../App.css';
 import './Header.css';
-import { useTheme } from '../contexts/ThemeContext';
 
 function Header() {
-  const { isDarkMode, toggleDarkMode } = useTheme();
-
-  useEffect(() => {
-    const app = document.querySelector('.App');
-    if (isDarkMode) {
-      app.classList.add('dark-mode');
-    } else {
-      app.classList.remove('dark-mode');
-    }
-  }, [isDarkMode]);
+  const location = useLocation();
+  const isBibliotecaPage = location.pathname === '/biblioteca';
 
   return (
-    <header className={`App-header ${isDarkMode ? 'dark-mode' : ''}`}>
+    <header className="App-header">
       <div className="header-content">
         <div className="logo-container">
           <img src={logo} className="App-logo" alt="logo" />
         </div>
 
         <div className="welcome-message">
-          <h1 lang="it">Benvenuti a Italianto!</h1>
+          <h1 lang="it">{isBibliotecaPage ? 'Benvenuti in Biblioteca' : 'Benvenuti a Italianto!'}</h1>
         </div>
 
         <nav className="navigation">
@@ -41,13 +30,6 @@ function Header() {
         <div className="auth-buttons">
           <Link to="/register" className="auth-button">Registro</Link>
           <Link to="/login" className="auth-button">Accesso</Link>
-        </div>
-        <div className="dark-mode-toggle-container">
-          <div className={`dark-mode-toggle ${isDarkMode ? 'dark-mode' : ''}`} onClick={toggleDarkMode}>
-            <div className="switch-button">
-              <img src={isDarkMode ? sunnyIcon : moonIcon} alt="mode-icon" />
-            </div>
-          </div>
         </div>
       </div>
     </header>

@@ -16,6 +16,7 @@ import Messages from './components/pages/Messages';
 import Settings from './components/pages/Settings';
 import InformazioniInteressanti from './components/pages/InformazioniInteressanti';
 import CorsiDalVivo from './components/pages/CorsiDalVivo';
+import Biblioteca from './components/pages/Biblioteca'; // Importa el componente Biblioteca
 import './App.css';
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
           <Route path="/settings" element={<PrivateRoute><Settings /></PrivateRoute>} />
           <Route path="/informazioniinteressanti" element={<PrivateRoute><InformazioniInteressanti /></PrivateRoute>} />
           <Route path="/corsidalvivo" element={<PrivateRoute><CorsiDalVivo /></PrivateRoute>} />
+          <Route path="/biblioteca" element={<Biblioteca />} /> {/* Agrega la ruta para la biblioteca */}
           <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
       </div>
