@@ -1,47 +1,63 @@
 import React, { useState } from 'react';
 import ReactPlayer from 'react-player';
+import videoSrc from '../images/media/vid/LinguaItaliana.mp4';
+import VocaliSrc from '../images/media/vid/Vocali.mp4'; 
+import Consonanti1Src from '../images/media/vid/Consonanti1.mp4'; 
+import Consonanti2Src from '../images/media/vid/Consonanti2.mp4'; 
+import LetteraStranieriSrc from '../images/media/vid/LetteraStranieri.mp4'; 
+import SettimanaSrc from '../images/media/vid/Settimana.mp4'; 
+import MesiStagioniSrc from '../images/media/vid/MesiStagioni.mp4'; 
+import PublitaliantoSrc from '../images/media/vid/Publitalianto.mp4'; 
+import LinguaItalianaThumb from '../images/media/thumbnails/LinguaItaliana.png';
+import VocaliThumb from '../images/media/thumbnails/Vocali.png';
+import Consonanti1Thumb from '../images/media/thumbnails/Consonanti1.png';
+import Consonanti2Thumb from '../images/media/thumbnails/Consonanti2.png';
+import LetteraStranieriThumb from '../images/media/thumbnails/LetteraStranieri.png';
+import SettimanaThumb from '../images/media/thumbnails/Settimana.png';
+import MesiStagioniThumb from '../images/media/thumbnails/MesiStagioni.png';
+import PublitaliantoThumb from '../images/media/thumbnails/Publitalianto.png';
 import './MediaComponent.css';
 
 function MediaComponent() {
   const videoSources = [
     {
-      src: '/images/media/vid/LinguaItaliana.mp4',
-      thumbnail: '/images/media/thumbnails/LinguaItaliana.png',
+      src: videoSrc,
+      thumbnail: LinguaItalianaThumb,
       title: 'Lingua Italiana'
     },
     {
-      src: '/images/media/vid/Vocali.mp4',
-      thumbnail: '/images/media/thumbnails/Vocali.png',
+      src: VocaliSrc,
+      thumbnail: VocaliThumb,
       title: 'Le Vocali'
     },
     {
-      src: '/images/media/vid/Consonanti1.mp4',
-      thumbnail: '/images/media/thumbnails/Consonanti1.png',
+      src: Consonanti1Src,
+      thumbnail: Consonanti1Thumb,
       title: 'Le Consonanti 1'
     },
     {
-      src: '/images/media/vid/Consonanti2.mp4',
-      thumbnail: '/images/media/thumbnails/Consonanti2.png',
+      src: Consonanti2Src,
+      thumbnail: Consonanti2Thumb,
       title: 'Le Consonanti 2'
     },
     {
-      src: '/images/media/vid/LetteraStranieri.mp4',
-      thumbnail: '/images/media/thumbnails/LetteraStranieri.png',
+      src: LetteraStranieriSrc,
+      thumbnail: LetteraStranieriThumb,
       title: 'Le Lettere Straniere'
     },
     {
-      src: '/images/media/vid/Settimana.mp4',
-      thumbnail: '/images/media/thumbnails/Settimana.png',
+      src: SettimanaSrc,
+      thumbnail: SettimanaThumb,
       title: 'I Giorni'
     },
     {
-      src: '/images/media/vid/MesiStagioni.mp4',
-      thumbnail: '/images/media/thumbnails/MesiStagioni.png',
+      src: MesiStagioniSrc,
+      thumbnail: MesiStagioniThumb,
       title: 'Mesi e Stagioni'
     },
     {
-      src: '/images/media/vid/Publitalianto.mp4',
-      thumbnail: '/images/media/thumbnails/Publitalianto.png',
+      src: PublitaliantoSrc,
+      thumbnail: PublitaliantoThumb,
       title: 'Publitalianto'
     }
   ];
@@ -63,20 +79,17 @@ function MediaComponent() {
           <div key={index} className="video-item">
             <div className="video-thumbnail-wrapper" onClick={() => handlePlay(index)}>
               {!playing[index] && (
-                <img src={source.thumbnail} alt={source.title} className="video-thumbnail" loading="lazy" />
+                <img src={source.thumbnail} alt={source.title} className="video-thumbnail" />
               )}
-              {playing[index] && (
-                <ReactPlayer
-                  url={source.src}
-                  playing={playing[index]}
-                  controls={true}
-                  width="100%"
-                  height="auto"
-                  className="video-player"
-                  onEnded={() => handleEnded(index)}
-                  lazyLoad
-                />
-              )}
+              <ReactPlayer
+                url={source.src}
+                playing={playing[index]}
+                controls={true}
+                width="100%"
+                height="auto"
+                className="video-player"
+                onEnded={() => handleEnded(index)}
+              />
             </div>
             <div className="video-title">{source.title}</div>
           </div>

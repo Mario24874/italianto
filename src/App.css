@@ -1,11 +1,4 @@
 /* Estilos globales */
-:root {
-  --bg-color-light: #ffffff;
-  --text-color-light: #000000;
-  --bg-color-dark: #1c1c1c;
-  --text-color-dark: #f0f0f0;
-}
-
 .App {
   text-align: center;
   background-color: var(--bg-color-light);

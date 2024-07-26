@@ -1,18 +1,17 @@
 // src/components/Header.jsx
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../images/logo_Italianto.png';
 import sunnyIcon from '../images/sunny.svg';
 import moonIcon from '../images/moon.svg';
+import lanterna from '../lanterna.jpg';
+import lalanternaGenova from '../LalanternaGenova.png';
 import '../App.css';
 import './Header.css';
+import { useTheme } from '../contexts/ThemeContext';
 
 function Header() {
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-  };
+  const { isDarkMode, toggleDarkMode } = useTheme();
 
   useEffect(() => {
     const app = document.querySelector('.App');
@@ -52,6 +51,9 @@ function Header() {
             </div>
           </div>
         </div>
+      </div>
+      <div className="background-image">
+        <img src={isDarkMode ? lalanternaGenova : lanterna} alt="background" />
       </div>
     </header>
   );
