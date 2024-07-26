@@ -11,7 +11,7 @@
 
 .dark-mode-toggle-container {
   position: absolute;
-  top: 10px;
+  bottom: auto;
   right: 10px;
   z-index: 1000; /* Asegura que esté por encima de otros elementos */
 }
