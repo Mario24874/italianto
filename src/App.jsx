@@ -2,6 +2,7 @@
 import React from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import { ThemeProvider } from './contexts/ThemeContext';
+import Layout from './components/Layout'; // Importa el componente de layout
 import Home from './components/pages/Home';
 import Login from './components/pages/Login';
 import Register from './components/pages/Register';
@@ -17,30 +18,31 @@ import Settings from './components/pages/Settings';
 import InformazioniInteressanti from './components/pages/InformazioniInteressanti';
 import CorsiDalVivo from './components/pages/CorsiDalVivo';
 import Biblioteca from './components/pages/Biblioteca'; // Importa el componente Biblioteca
+import DashboardLayout from './components/DashboardLayout'; // Importa el componente DashboardLayout
 import './App.css';
 
 function App() {
   return (
     <ThemeProvider> 
-      <div className="App">
+      <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+          <Route path="/dashboard" element={<PrivateRoute><DashboardLayout><Dashboard /></DashboardLayout></PrivateRoute>} />
           <Route path="/contatto" element={<Contatto />} />
-          <Route path="/lezione" element={<PrivateRoute><Lezione /></PrivateRoute>} />
-          <Route path="/canzoni" element={<PrivateRoute><Canzoni /></PrivateRoute>} />
-          <Route path="/passatempi" element={<PrivateRoute><Passatempi /></PrivateRoute>} />
-          <Route path="/downloads" element={<PrivateRoute><Downloads /></PrivateRoute>} />
-          <Route path="/messages" element={<PrivateRoute><Messages /></PrivateRoute>} />
-          <Route path="/settings" element={<PrivateRoute><Settings /></PrivateRoute>} />
-          <Route path="/informazioniinteressanti" element={<PrivateRoute><InformazioniInteressanti /></PrivateRoute>} />
-          <Route path="/corsidalvivo" element={<PrivateRoute><CorsiDalVivo /></PrivateRoute>} />
+          <Route path="/lezione" element={<PrivateRoute><DashboardLayout><Lezione /></DashboardLayout></PrivateRoute>} />
+          <Route path="/canzoni" element={<PrivateRoute><DashboardLayout><Canzoni /></DashboardLayout></PrivateRoute>} />
+          <Route path="/passatempi" element={<PrivateRoute><DashboardLayout><Passatempi /></DashboardLayout></PrivateRoute>} />
+          <Route path="/downloads" element={<PrivateRoute><DashboardLayout><Downloads /></DashboardLayout></PrivateRoute>} />
+          <Route path="/messages" element={<PrivateRoute><DashboardLayout><Messages /></DashboardLayout></PrivateRoute>} />
+          <Route path="/settings" element={<PrivateRoute><DashboardLayout><Settings /></DashboardLayout></PrivateRoute>} />
+          <Route path="/informazioniinteressanti" element={<PrivateRoute><DashboardLayout><InformazioniInteressanti /></DashboardLayout></PrivateRoute>} />
+          <Route path="/corsidalvivo" element={<PrivateRoute><DashboardLayout><CorsiDalVivo /></DashboardLayout></PrivateRoute>} />
           <Route path="/biblioteca" element={<Biblioteca />} /> {/* Agrega la ruta para la biblioteca */}
           <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
-      </div>
+      </Layout>
     </ThemeProvider>
   );
 }

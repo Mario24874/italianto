@@ -7,7 +7,20 @@ import './Header.css';
 
 function Header() {
   const location = useLocation();
-  const isBibliotecaPage = location.pathname === '/biblioteca';
+
+  const getWelcomeMessage = () => {
+    switch (location.pathname) {
+      case '/':
+        return 'Benvenuti a Italianto!';
+      case '/biblioteca':
+        return 'Benvenuti in Biblioteca';
+      case '/contatto':
+        return 'Benvenuti in Contatto';
+      // Agrega más casos según sea necesario
+      default:
+        return 'Benvenuti a Italianto!';
+    }
+  };
 
   return (
     <header className="App-header">
@@ -17,7 +30,7 @@ function Header() {
         </div>
 
         <div className="welcome-message">
-          <h1 lang="it">{isBibliotecaPage ? 'Benvenuti in Biblioteca' : 'Benvenuti a Italianto!'}</h1>
+          <h1 lang="it">{getWelcomeMessage()}</h1>
         </div>
 
         <nav className="navigation">
