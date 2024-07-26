@@ -18,13 +18,13 @@
   text-align: center;
   padding: 20px;
   border-radius: 10px;
-  background-color: #fff;
+  background-color: #ffffff2d;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: background-color 0.5s ease, box-shadow 0.5s ease;
 }
 
 .dashboard-container.dark-mode .dashboard-content {
-  background-color: #444;
+  background-color: #44444400;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
@@ -39,7 +39,7 @@
   padding: 15px 30px;
   border: none;
   border-radius: 5px;
-  background-color: #007bff;
+  background-color: #1d9112;
   color: white;
   text-decoration: none;
   font-size: 1rem;
@@ -47,14 +47,14 @@
 }
 
 .section-button:hover {
-  background-color: #0056b3;
+  background-color: #b30000;
   transform: translateY(-2px);
 }
 
 .dashboard-container.dark-mode .section-button {
-  background-color: #0056b3;
+  background-color: #b30000;
 }
 
 .dashboard-container.dark-mode .section-button:hover {
-  background-color: #003d80;
+  background-color: #1d9112;
 }
