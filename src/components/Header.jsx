@@ -13,9 +13,13 @@ function Header() {
       case '/':
         return 'Benvenuti a Italianto!';
       case '/biblioteca':
-        return 'Benvenuti in Biblioteca';
+        return 'Biblioteca';
       case '/contatto':
-        return 'Benvenuti in Contatto';
+        return 'Contatto';
+      case '/register':
+        return 'Registro';
+      case '/login':
+        return 'Accesso';
       // Agrega más casos según sea necesario
       default:
         return 'Benvenuti a Italianto!';
