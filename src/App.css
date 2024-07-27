@@ -16,7 +16,7 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   transition: background-image 0.5s ease, background-color 0.5s ease, color 0.5s ease;
-  background-image: url('./images/lanterna.jpg'); 
+  background-image: url('./lanterna.jpg'); 
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -27,7 +27,7 @@
 .App.dark-mode {
   background-color: var(--bg-color-dark);
   color: var(--text-color-dark);
-  background-image: url('./images/LalanternaGenova.png'); 
+  background-image: url('./LalanternaGenova.png'); 
 }
 
 /* Ajustes para pantallas pequeñas */

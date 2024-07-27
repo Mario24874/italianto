@@ -5,7 +5,7 @@ import Footer from './Footer.jsx';
 import { useTheme } from '../contexts/ThemeContext';
 import sunnyIcon from '../images/sunny.svg';
 import moonIcon from '../images/moon.svg';
-import '../App.css'; // Importa App.css en lugar de Layout.css
+import '../App.css'; 
 
 const Layout = ({ children }) => {
   const { isDarkMode, toggleDarkMode } = useTheme();

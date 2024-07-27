@@ -1,7 +1,5 @@
 // src/components/pages/Contatto.jsx
 import React, { useState } from 'react';
-import Header from '../Header.jsx';
-import Footer from '../Footer.jsx';
 import './Contatto.css'; 
 import image from '../../assets/IlPostino.png'; 
 import emailjs from 'emailjs-com';
@@ -49,63 +47,59 @@ const Contatto = () => {
   };
 
   return (
-    <div>
-      <Header />
-      <div className="contatto-container">
-        <h2>Contattaci</h2>
-        <div className="form-image-container">
-          <form onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label htmlFor="user_name">Nome</label>
-              <input
-                type="text"
-                id="user_name"
-                name="user_name"
-                value={formData.user_name}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="user_email">Email</label>
-              <input
-                type="email"
-                id="user_email"
-                name="user_email"
-                value={formData.user_email}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="user_phone">Telefono</label>
-              <input
-                type="tel"
-                id="user_phone"
-                name="user_phone"
-                value={formData.user_phone}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="message">Messaggio</label>
-              <textarea
-                id="message"
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <button type="submit" className="submit-button">Invia</button>
-          </form>
-          <div className="image-container">
-            <img src={image} alt="Descripción de la imagen" className="form-image" />
+    <div className="contatto-container">
+      <h2>Contattaci</h2>
+      <div className="form-image-container">
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="user_name">Nome</label>
+            <input
+              type="text"
+              id="user_name"
+              name="user_name"
+              value={formData.user_name}
+              onChange={handleChange}
+              required
+            />
           </div>
+          <div className="form-group">
+            <label htmlFor="user_email">Email</label>
+            <input
+              type="email"
+              id="user_email"
+              name="user_email"
+              value={formData.user_email}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="user_phone">Telefono</label>
+            <input
+              type="tel"
+              id="user_phone"
+              name="user_phone"
+              value={formData.user_phone}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="message">Messaggio</label>
+            <textarea
+              id="message"
+              name="message"
+              value={formData.message}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <button type="submit" className="submit-button">Invia</button>
+        </form>
+        <div className="image-container">
+          <img src={image} alt="Descripción de la imagen" className="form-image" />
         </div>
       </div>
-      <Footer />
     </div>
   );
 };
