@@ -2,7 +2,7 @@
 import React from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import { ThemeProvider } from './contexts/ThemeContext';
-import Layout from './components/Layout'; // Importa el componente de layout
+import Layout from './components/Layout';
 import Home from './components/pages/Home';
 import Login from './components/pages/Login';
 import Register from './components/pages/Register';
@@ -17,32 +17,30 @@ import Messages from './components/pages/Messages';
 import Settings from './components/pages/Settings';
 import InformazioniInteressanti from './components/pages/InformazioniInteressanti';
 import CorsiDalVivo from './components/pages/CorsiDalVivo';
-import Biblioteca from './components/pages/Biblioteca'; // Importa el componente Biblioteca
-import DashboardLayout from './components/DashboardLayout'; // Importa el componente DashboardLayout
+import Biblioteca from './components/pages/Biblioteca';
+import DashboardLayout from './components/DashboardLayout';
 import './App.css';
 
 function App() {
   return (
     <ThemeProvider> 
-      <Layout>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/dashboard" element={<PrivateRoute><DashboardLayout><Dashboard /></DashboardLayout></PrivateRoute>} />
-          <Route path="/contatto" element={<Contatto />} />
-          <Route path="/lezione" element={<PrivateRoute><DashboardLayout><Lezione /></DashboardLayout></PrivateRoute>} />
-          <Route path="/canzoni" element={<PrivateRoute><DashboardLayout><Canzoni /></DashboardLayout></PrivateRoute>} />
-          <Route path="/passatempi" element={<PrivateRoute><DashboardLayout><Passatempi /></DashboardLayout></PrivateRoute>} />
-          <Route path="/downloads" element={<PrivateRoute><DashboardLayout><Downloads /></DashboardLayout></PrivateRoute>} />
-          <Route path="/messages" element={<PrivateRoute><DashboardLayout><Messages /></DashboardLayout></PrivateRoute>} />
-          <Route path="/settings" element={<PrivateRoute><DashboardLayout><Settings /></DashboardLayout></PrivateRoute>} />
-          <Route path="/informazioniinteressanti" element={<PrivateRoute><DashboardLayout><InformazioniInteressanti /></DashboardLayout></PrivateRoute>} />
-          <Route path="/corsidalvivo" element={<PrivateRoute><DashboardLayout><CorsiDalVivo /></DashboardLayout></PrivateRoute>} />
-          <Route path="/biblioteca" element={<Biblioteca />} /> {/* Agrega la ruta para la biblioteca */}
-          <Route path="*" element={<Navigate to="/login" />} />
-        </Routes>
-      </Layout>
+      <Routes>
+        <Route path="/" element={<Layout><Home /></Layout>} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/dashboard" element={<PrivateRoute><Layout><DashboardLayout><Dashboard /></DashboardLayout></Layout></PrivateRoute>} />
+        <Route path="/contatto" element={<Layout><Contatto /></Layout>} />
+        <Route path="/lezione" element={<PrivateRoute><Layout><DashboardLayout><Lezione /></DashboardLayout></Layout></PrivateRoute>} />
+        <Route path="/canzoni" element={<PrivateRoute><Layout><DashboardLayout><Canzoni /></DashboardLayout></Layout></PrivateRoute>} />
+        <Route path="/passatempi" element={<PrivateRoute><Layout><DashboardLayout><Passatempi /></DashboardLayout></Layout></PrivateRoute>} />
+        <Route path="/downloads" element={<PrivateRoute><Layout><DashboardLayout><Downloads /></DashboardLayout></Layout></PrivateRoute>} />
+        <Route path="/messages" element={<PrivateRoute><Layout><DashboardLayout><Messages /></DashboardLayout></Layout></PrivateRoute>} />
+        <Route path="/settings" element={<PrivateRoute><Layout><DashboardLayout><Settings /></DashboardLayout></Layout></PrivateRoute>} />
+        <Route path="/informazioniinteressanti" element={<PrivateRoute><Layout><DashboardLayout><InformazioniInteressanti /></DashboardLayout></Layout></PrivateRoute>} />
+        <Route path="/corsidalvivo" element={<PrivateRoute><Layout><DashboardLayout><CorsiDalVivo /></DashboardLayout></Layout></PrivateRoute>} />
+        <Route path="/biblioteca" element={<Layout><Biblioteca /></Layout>} />
+        <Route path="*" element={<Navigate to="/login" />} />
+      </Routes>
     </ThemeProvider>
   );
 }
