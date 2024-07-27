@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext.tsx';
-import Layout from '../Layout.jsx';
 import './Register.css';
 import googleIcon from '../../assets/google-icon.svg';
 import appleIcon from '../../assets/apple-icon.svg';
