@@ -38,8 +38,8 @@ function AppContent() {
   return (
     <Routes>
       <Route path="/" element={<Layout><Home /></Layout>} />
-      <Route path="/login" element={<Layout welcomeMessage="Benvenuti al Acceso"><Login /></Layout>} />
-      <Route path="/register" element={<Layout welcomeMessage="Benvenuti al Registro"><Register /></Layout>} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
       <Route path="/dashboard" element={<PrivateRoute><DashboardLayout><Dashboard /></DashboardLayout></PrivateRoute>} />
       <Route path="/contatto" element={<Layout><Contatto /></Layout>} />
       <Route path="/lezione" element={<PrivateRoute><DashboardLayout><Lezione /></DashboardLayout></PrivateRoute>} />

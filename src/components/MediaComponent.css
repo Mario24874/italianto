@@ -57,12 +57,12 @@
 }
 
 .App.dark-mode .video-pro-header {
-  background-color: #3f5168;
+  background-color: #3f516865;
   color: #f0f0f0;
 }
 
 .App.dark-mode .video-item {
-  background-color: #333333;
+  background-color: #33333375;
 }
 
 .App.dark-mode .video-title {
