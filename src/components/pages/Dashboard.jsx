@@ -18,8 +18,8 @@ const Dashboard = () => {
             <Link to="/lezione" className="section-button">Lezione</Link>
             <Link to="/canzoni" className="section-button">Canzoni</Link>
             <Link to="/passatempi" className="section-button">Passatempi</Link>
-            <Link to="/informazioniinteressanti" className="section-button">Información de Interés</Link>
-            <Link to="/corsidalvivo" className="section-button">Clases en Vivo</Link>
+            <Link to="/informazioniinteressanti" className="section-button">Informazioni Interessnti</Link>
+            <Link to="/corsidalvivo" className="section-button">Corsi dal Vivo</Link>
           </div>
         </div>
       </div>

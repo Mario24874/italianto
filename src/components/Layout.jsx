@@ -1,8 +1,8 @@
 // src/components/Layout.jsx
 import React from 'react';
+import { useTheme } from '../contexts/ThemeContext';
 import Header from './Header.jsx';
 import Footer from './Footer.jsx';
-import { useTheme } from '../contexts/ThemeContext';
 import sunnyIcon from '../images/sunny.svg';
 import moonIcon from '../images/moon.svg';
 import '../App.css'; 
