@@ -1,47 +1,51 @@
 /* src/components/Sections.css */
 .sections-container {
-    padding: 20px;
-  }
-  
-  .sections-container h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-  
-  .sections-container form {
-    margin-bottom: 20px;
-  }
-  
-  .sections-container textarea {
-    width: 100%;
-    height: 100px;
-    margin-bottom: 10px;
-    padding: 10px;
-  }
-  
-  .sections-container button {
-    padding: 10px 20px;
-    background-color: #ff0000;
-    color: white;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .commenti-list {
-    max-height: 400px;
-    overflow-y: auto;
-  }
-  
-  .commento {
-    border-bottom: 1px solid #ccc;
-    padding: 10px 0;
-  }
-  
-  .commento p {
-    margin: 0;
-  }
-  
-  .commento .meta {
-    font-size: 12px;
-    color: #777;
-  }
+  padding: 20px;
+}
+
+.sections-container h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.commenti-list {
+  max-height: 400px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.commento {
+  border-bottom: 1px solid #ccc;
+  padding: 10px 0;
+}
+
+.commento .user-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.commento .user-info .avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.commento .user-info .full-name {
+  font-weight: bold;
+}
+
+.commento .user-info .email {
+  color: #777;
+}
+
+.commento .commento-text {
+  margin-bottom: 10px;
+}
+
+.commento .meta {
+  font-size: 12px;
+  color: #777;
+}

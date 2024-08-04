@@ -1,15 +1,13 @@
 // src/components/Sections.jsx
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { supabase } from '../supabaseClient';
 import './Sections.css';
-import LoginModal from './LoginModal';
 
 const Sections = () => {
   const { user, profile } = useAuth();
   const [commenti, setCommenti] = useState([]);
-  const [nuovoCommento, setNuovoCommento] = useState('');
-  const [showLoginModal, setShowLoginModal] = useState(false);
+  const commentsEndRef = useRef(null);
 
   useEffect(() => {
     fetchCommenti();
@@ -28,45 +26,15 @@ const Sections = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!user) {
-      setShowLoginModal(true);
-      return;
+  useEffect(() => {
+    if (commentsEndRef.current) {
+      commentsEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
-    if (!nuovoCommento.trim()) return;
-
-    await sendComment();
-  };
-
-  const sendComment = async () => {
-    const { data, error } = await supabase
-      .from('commenti')
-      .insert([{ user_id: user.id, commento: nuovoCommento }]);
-
-    if (error) {
-      console.error('Errore nell\'aggiunta del commento:', error);
-    } else {
-      setNuovoCommento('');
-      fetchCommenti();
-    }
-  };
-
-  const handleLoginSuccess = () => {
-    sendComment();
-  };
+  }, [commenti]);
 
   return (
     <div className="sections-container">
       <h2>Commenti degli Utenti</h2>
-      <form onSubmit={handleSubmit}>
-        <textarea
-          value={nuovoCommento}
-          onChange={(e) => setNuovoCommento(e.target.value)}
-          placeholder="Scrivi il tuo commento qui"
-        />
-        <button type="submit">Invia</button>
-      </form>
       <div className="commenti-list">
         {commenti.map((commento) => (
           <div key={commento.id} className="commento">
@@ -83,12 +51,8 @@ const Sections = () => {
             </p>
           </div>
         ))}
+        <div ref={commentsEndRef} />
       </div>
-      <LoginModal
-        isOpen={showLoginModal}
-        onClose={() => setShowLoginModal(false)}
-        onLoginSuccess={handleLoginSuccess}
-      />
     </div>
   );
 };
