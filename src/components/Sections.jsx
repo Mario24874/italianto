@@ -3,11 +3,13 @@ import React, { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { supabase } from '../supabaseClient';
 import './Sections.css';
+import LoginModal from './LoginModal';
 
 const Sections = () => {
-  const { user } = useAuth();
+  const { user, profile } = useAuth();
   const [commenti, setCommenti] = useState([]);
   const [nuovoCommento, setNuovoCommento] = useState('');
+  const [showLoginModal, setShowLoginModal] = useState(false);
 
   useEffect(() => {
     fetchCommenti();
@@ -16,7 +18,7 @@ const Sections = () => {
   const fetchCommenti = async () => {
     const { data, error } = await supabase
       .from('commenti')
-      .select('*, user:user_id(email)')
+      .select('*, user:user_id(email, full_name, avatar_url)')
       .order('created_at', { ascending: false });
 
     if (error) {
@@ -28,6 +30,10 @@ const Sections = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!user) {
+      setShowLoginModal(true);
+      return;
+    }
     if (!nuovoCommento.trim()) return;
 
     const { data, error } = await supabase
@@ -56,13 +62,24 @@ const Sections = () => {
       <div className="commenti-list">
         {commenti.map((commento) => (
           <div key={commento.id} className="commento">
-            <p>{commento.commento}</p>
+            <div className="user-info">
+              <img src={commento.user.avatar_url} alt={commento.user.full_name} className="avatar" />
+              <div>
+                <p className="full-name">{commento.user.full_name}</p>
+                <p className="email">{commento.user.email}</p>
+              </div>
+            </div>
+            <p className="commento-text">{commento.commento}</p>
             <p className="meta">
-              {commento.user.email} - {new Date(commento.created_at).toLocaleString()}
+              {new Date(commento.created_at).toLocaleString()}
             </p>
           </div>
         ))}
       </div>
+      <LoginModal
+        isOpen={showLoginModal}
+        onClose={() => setShowLoginModal(false)}
+      />
     </div>
   );
 };

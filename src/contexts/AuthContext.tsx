@@ -1,3 +1,4 @@
+// src/contexts/AuthContext.tsx
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
@@ -5,6 +6,8 @@ import { handlePayment } from '../authService';
 
 interface UserProfile {
   id: string;
+  full_name: string;
+  avatar_url: string;
   subscription_type: string;
   role: string;
   // ...otros campos que necesites del perfil...
