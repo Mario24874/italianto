@@ -33,7 +33,7 @@ const Sidebar = () => {
           <li>
             <a href="/lezione">
               <i className="bx bx-book"></i>
-              <span>Lezione</span>
+              <span>Lezioni</span>
             </a>
           </li>
           <li>
@@ -58,6 +58,18 @@ const Sidebar = () => {
             <a href="/corsidalvivo">
               <i className="bx bx-video"></i>
               <span>Corsi dal Vivo</span>
+            </a>
+          </li>
+          <li>
+            <a href="/downloads">
+              <i className="bx bx-download"></i>
+              <span>Download</span>
+            </a>
+          </li>
+          <li>
+            <a href="/settings">
+              <i className="bx bx-cog"></i>
+              <span>Impostazioni</span>
             </a>
           </li>
           <li>

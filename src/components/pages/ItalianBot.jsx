@@ -22,11 +22,18 @@ const ItalianBot = () => {
       case '2':
         response = 'Le lezioni sono disponibili secondo la disponibilità.';
         break;
-      case '3':
-        response = '- Assistita. - Consultiva. - On Line. - Presenziale.';
-        break;
-      default:
-        response = 'Scusa, non ho capito la tua richiesta.';
+        case '3':
+          response = (
+            <>
+              - Assistita.<br />
+              - Consultiva.<br />
+              - On Line.<br />
+              - Presenziale.
+            </>
+          );
+          break;
+        default:
+          response = 'Scusa, non ho capito la tua richiesta.';
     }
     setMessages(prevMessages => [...prevMessages, { text: `Hai scelto: ${option}`, fromBot: false }, { text: response, fromBot: true }]);
   };

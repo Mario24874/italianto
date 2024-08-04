@@ -1,10 +1,12 @@
+// src/components/pages/InformazioniInteressanti.jsx
 import React from 'react';
+import UnderConstruction from '../UnderConstruction';
 
 const InformazioniInteressanti = () => {
   return (
     <div>
-      <h2>Informazioni Interessanti</h2>
-      <p>Contenuto de la Informazioni Interessanti.</p>
+      <h1>Informazioni Interessanti</h1>
+      <UnderConstruction />
     </div>
   );
 };

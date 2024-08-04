@@ -1,10 +1,11 @@
 import React from 'react';
+import UnderConstruction from '../UnderConstruction';
 
 const Canzoni = () => {
   return (
     <div>
-      <h2>Canzoni</h2>
-      <p>Contenuto de la canzoni.</p>
+      <h1>Canzoni</h1>
+      <UnderConstruction />
     </div>
   );
 };

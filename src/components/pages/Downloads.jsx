@@ -1,10 +1,12 @@
+// src/components/pages/Downloads.jsx
 import React from 'react';
+import UnderConstruction from '../UnderConstruction';
 
 const Downloads = () => {
   return (
     <div>
-      <h2>Downloads</h2>
-      <p>Contenuto de la downloads.</p>
+      <h1>Downloads</h1>
+      <UnderConstruction />
     </div>
   );
 };

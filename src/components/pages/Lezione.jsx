@@ -1,10 +1,11 @@
 import React from 'react';
+import UnderConstruction from '../UnderConstruction';
 
 const Lezione = () => {
   return (
     <div>
-      <h2>Lezione</h2>
-      <p>Contenuto de la lezione.</p>
+      <h1>Lezioni</h1>
+      <UnderConstruction />
     </div>
   );
 };

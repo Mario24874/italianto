@@ -15,10 +15,10 @@ const Dashboard = () => {
           <h2>L'aula</h2>
           <p>Benvenuti in classe!</p>
           <div className="section-buttons">
-            <Link to="/lezione" className="section-button">Lezione</Link>
+            <Link to="/lezione" className="section-button">Lezioni</Link>
             <Link to="/canzoni" className="section-button">Canzoni</Link>
             <Link to="/passatempi" className="section-button">Passatempi</Link>
-            <Link to="/informazioniinteressanti" className="section-button">Informazioni Interessnti</Link>
+            <Link to="/informazioniinteressanti" className="section-button">Informazioni Interessanti</Link>
             <Link to="/corsidalvivo" className="section-button">Corsi dal Vivo</Link>
           </div>
         </div>

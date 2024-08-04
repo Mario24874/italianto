@@ -1,10 +1,11 @@
 import React from 'react';
+import UnderConstruction from '../UnderConstruction';
 
 const Settings = () => {
   return (
     <div>
-      <h2>Impostazioni</h2>
-      <p>Contenuto de la impostazioni.</p>
+      <h1>Impostazioni</h1>
+      <UnderConstruction />
     </div>
   );
 };

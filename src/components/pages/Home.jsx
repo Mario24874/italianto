@@ -12,9 +12,9 @@ const Home = () => {
 
   return (
     <div className={`home-container ${isDarkMode ? 'dark-mode' : ''}`}>
-      <Sections />
       <ImageComponent />
-      <MediaComponent />      
+      <MediaComponent />
+      <Sections />      
       <ItalianBot /> 
     </div>
   );

@@ -1,10 +1,12 @@
+// src/components/pages/CorsiDalVivo.jsx
 import React from 'react';
+import UnderConstruction from '../UnderConstruction';
 
 const CorsiDalVivo = () => {
   return (
     <div>
-      <h2>Corsi dal Vivo</h2>
-      <p>Contenuto de la Corsi dal Vivo.</p>
+      <h1>Corsi Dal Vivo</h1>
+      <UnderConstruction />
     </div>
   );
 };
