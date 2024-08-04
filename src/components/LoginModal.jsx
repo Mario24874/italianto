@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import './LoginModal.css';
 
-const LoginModal = ({ isOpen, onClose }) => {
+const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
   const { login } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -13,6 +13,7 @@ const LoginModal = ({ isOpen, onClose }) => {
     e.preventDefault();
     try {
       await login(email, password);
+      onLoginSuccess(); // Llama a la función de callback después de iniciar sesión
       onClose();
     } catch (error) {
       setError(error.message);

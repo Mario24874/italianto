@@ -36,6 +36,10 @@ const Sections = () => {
     }
     if (!nuovoCommento.trim()) return;
 
+    await sendComment();
+  };
+
+  const sendComment = async () => {
     const { data, error } = await supabase
       .from('commenti')
       .insert([{ user_id: user.id, commento: nuovoCommento }]);
@@ -46,6 +50,10 @@ const Sections = () => {
       setNuovoCommento('');
       fetchCommenti();
     }
+  };
+
+  const handleLoginSuccess = () => {
+    sendComment();
   };
 
   return (
@@ -79,6 +87,7 @@ const Sections = () => {
       <LoginModal
         isOpen={showLoginModal}
         onClose={() => setShowLoginModal(false)}
+        onLoginSuccess={handleLoginSuccess}
       />
     </div>
   );
