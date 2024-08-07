@@ -1,4 +1,3 @@
-// src/components/pages/Home.jsx
 import React from 'react';
 import Sections from '../Sections.jsx';
 import ImageComponent from '../ImageComponent.jsx';

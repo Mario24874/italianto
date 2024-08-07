@@ -3,6 +3,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { supabase } from '../supabaseClient';
 import './Sections.css';
+import UnderConstruction from './UnderConstruction';
 
 const Sections = () => {
   const { user, profile } = useAuth();
@@ -12,31 +13,38 @@ const Sections = () => {
   useEffect(() => {
     fetchCommenti();
   }, []);
-
+  
   const fetchCommenti = async () => {
     const { data, error } = await supabase
-      .from('commenti')
-      .select('*, user:user_id(email, full_name, avatar_url)')
-      .order('created_at', { ascending: false });
-
+        .from('commenti')
+        .select(`
+            *, 
+            profiles:user_id(full_name, avatar_url),
+            author:user_id (email)
+        `) 
+        .eq('user_id', 'user_profiles.id') // Usamos .eq() para unir las tablas
+        .eq('user_profiles.id', 'auth.users.id') 
+        .order('created_at', { ascending: false }); 
+  
     if (error) {
-      console.error('Errore nel fetch dei commenti:', error);
+        console.error('Error al obtener comentarios:', error); 
     } else {
-      setCommenti(data);
+        setCommenti(data);
     }
   };
-
+  
   useEffect(() => {
+    console.log('Commenti aggiornati:', commenti);
     if (commentsEndRef.current) {
       commentsEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [commenti]);
-
+  
   return (
     <div className="sections-container">
       <h2>Commenti degli Utenti</h2>
       <div className="commenti-list">
-        {commenti.map((commento) => (
+        {commenti.length === 0 ? <UnderConstruction /> : commenti.map((commento) => (
           <div key={commento.id} className="commento">
             <div className="user-info">
               <img src={commento.user.avatar_url} alt={commento.user.full_name} className="avatar" />

@@ -15,12 +15,18 @@ const Dashboard = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!user) {
+      alert('Devi essere autenticato per scrivere un commento.');
+      return;
+    }
     if (!commento.trim()) return;
 
+    console.log('Datos de la solicitud:', { user_id: user.id, commento });
+  
     const { data, error } = await supabase
       .from('commenti')
       .insert([{ user_id: user.id, commento }]);
-
+  
     if (error) {
       console.error('Errore nell\'aggiunta del commento:', error);
     } else {
