@@ -94,3 +94,9 @@
 .social-button.apple:hover {
   background-color: #948f8f;
 }
+
+.verification-message {
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 10px;
+}

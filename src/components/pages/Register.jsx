@@ -12,6 +12,7 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [verificationMessage, setVerificationMessage] = useState('');
   const navigate = useNavigate();
   const { register } = useAuth();
 
@@ -23,6 +24,7 @@ const Register = () => {
     }
     try {
       await register(email, password);
+      setVerificationMessage('Verificate la registrazione nella vostra e-mail');
     } catch (error) {
       setErrorMessage(error.message);
     }
@@ -57,6 +59,7 @@ const Register = () => {
       <div className="register-container">
         <h2>Registrazione Utente</h2>
         {errorMessage && <p className="error-message">{errorMessage}</p>}
+        {verificationMessage && <p className="verification-message">{verificationMessage}</p>}
         <form onSubmit={handleRegister}>
           <div className="form-group">
             <label>Email:</label>
