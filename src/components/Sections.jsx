@@ -18,11 +18,11 @@ const Sections = () => {
     const { data, error } = await supabase
         .from('commenti')
         .select(`
-            *, 
+            id, commento, created_at, user_id, 
             profiles:user_id(full_name, avatar_url),
             author:user_id (email)
         `) 
-        .eq('user_id', 'user_profiles.id') // Usamos .eq() para unir las tablas
+        .eq('user_id', 'user_profiles.id')
         .eq('user_profiles.id', 'auth.users.id') 
         .order('created_at', { ascending: false }); 
   
