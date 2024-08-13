@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { supabase } from '../../supabaseClient';
+import { v4 as uuidv4 } from 'uuid';
 import './Settings.css';
 
 const Settings = () => {
   const { user } = useAuth();
   const [profile, setProfile] = useState({
+    id: uuidv4(),
     full_name: '',
     email: '',
     country: '',
@@ -94,7 +96,7 @@ const Settings = () => {
       {success && <p className="success">{success}</p>}
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Full Name</label>
+          <label>Nome e cognome</label>
           <input
             type="text"
             name="full_name"
@@ -114,7 +116,7 @@ const Settings = () => {
           />
         </div>
         <div>
-          <label>Country</label>
+          <label>Paese</label>
           <input
             type="text"
             name="country"
@@ -124,7 +126,7 @@ const Settings = () => {
           />
         </div>
         <div>
-          <label>Region</label>
+          <label>Regione</label>
           <input
             type="text"
             name="region"
@@ -134,7 +136,7 @@ const Settings = () => {
           />
         </div>
         <div>
-          <label>Phone Number</label>
+          <label>Numero di telefono</label>
           <input
             type="text"
             name="phone_number"
@@ -144,7 +146,7 @@ const Settings = () => {
           />
         </div>
         <div>
-          <label>Identity Document</label>
+          <label>Documento d'identità</label>
           <input
             type="text"
             name="identity_document"
@@ -154,7 +156,7 @@ const Settings = () => {
           />
         </div>
         <div>
-          <label>Profile Photo (jpg or png only)</label>
+          <label>Foto del profilo (solo jpg o png)</label>
           <input
             type="file"
             accept="image/jpeg,image/png"
@@ -165,7 +167,7 @@ const Settings = () => {
           )}
         </div>
         <button type="submit" disabled={loading}>
-          {loading ? 'Saving...' : 'Save'}
+          {loading ? 'Salvare...' : 'Salva'}
         </button>
       </form>
     </div>
