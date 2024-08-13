@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { supabase } from '../../supabaseClient';
-import { v4 as uuidv4 } from 'uuid';
 import './Settings.css';
 
 const Settings = () => {
   const { user } = useAuth();
   const [profile, setProfile] = useState({
-    id: uuidv4(),
+    id: '',
     full_name: '',
     email: '',
     country: '',
@@ -30,7 +29,7 @@ const Settings = () => {
       .from('user_profiles')
       .select('*')
       .eq('user_id', user.id)
-      .single();
+      .single(); // Asegúrate de usar .single() para obtener un solo objeto
 
     if (error) {
       setError(error.message);
