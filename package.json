@@ -36,6 +36,7 @@
     "slick-carousel": "^1.8.1",
     "stripe": "^16.4.0",
     "terser": "^5.31.0",
+    "uuid": "^10.0.0",
     "video-react": "^0.16.0",
     "yup": "^1.4.0"
   },
