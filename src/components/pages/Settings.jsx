@@ -6,7 +6,7 @@ import './Settings.css';
 const Settings = () => {
   const { user } = useAuth();
   const [profile, setProfile] = useState({
-    id: '',
+    id: user?.id || '', // Usa el id del usuario si está disponible
     full_name: '',
     email: '',
     country: '',
@@ -34,7 +34,7 @@ const Settings = () => {
     if (error) {
       setError(error.message);
     } else {
-      setProfile(data);
+      setProfile({ ...data, id: data.id || user.id }); // Asegúrate de que el id esté inicializado correctamente
     }
     setLoading(false);
   };
