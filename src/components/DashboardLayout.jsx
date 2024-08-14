@@ -1,9 +1,9 @@
-// src/components/DashboardLayout.jsx
 import React from 'react';
 import Sidebar from './Sidebar';
 import { useTheme } from '../contexts/ThemeContext';
 import sunnyIcon from '../images/sunny.svg';
 import moonIcon from '../images/moon.svg';
+import UserProfile from './UserProfile'; // Importa UserProfile
 import './DashboardLayout.css';
 import '../App.css'; // Importa App.css para tener los estilos del botón de cambio de tema
 
@@ -21,6 +21,7 @@ const DashboardLayout = ({ children }) => {
       </div>
       <Sidebar />
       <main className="dashboard-content">
+        <UserProfile /> {/* Incluye UserProfile aquí */}
         {children}
       </main>
     </div>

@@ -1,39 +1,74 @@
 /* src/components/DashboardLayout.css */
 .dashboard-layout {
-    display: flex;
-    height: 100vh;
-  }
-  
-  .sidebar {
-    position: fixed;
-    inset: 0 auto 0 0;
-    padding: 1rem;
-    width: var(--sb-width);
-    background-image: linear-gradient(to right, #1ca118, #ffffff, #d63030);
-    transition: width 0.5s ease-in-out;
-  }
-  
-  .sidebar.sb-expanded {
-    width: 250px;
-  }
-  
-  .dashboard-content {
-    flex-grow: 1;
-    padding: 15px;
-    transition: background-color 0.5s ease, color 0.5s ease;
-  }
-  
-  .dark-mode {
-    background-color: #33333300;
-    color: #fff;
-  }
-  
-  .dark-mode .sidebar {
-    background-color: #44444400;
-  }
-  
-  .dark-mode .dashboard-content {
-    background-color: #33333300;
-  }
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  position: fixed;
+  inset: 0 auto 0 0;
+  padding: 1rem;
+  width: var(--sb-width);
+  background-image: linear-gradient(to right, #1ca118, #ffffff, #d63030);
+  transition: width 0.5s ease-in-out;
+}
+
+.sidebar.sb-expanded {
+  width: 250px;
+}
+
+.dashboard-content {
+  flex-grow: 1;
+  padding: 15px;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+.dark-mode {
+  background-color: #33333300;
+  color: #fff;
+}
+
+.dark-mode .sidebar {
+  background-color: #44444400;
+}
+
+.dark-mode .dashboard-content {
+  background-color: #33333300;
+}
+
+/* Estilos para UserProfile */
+.user-profile {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #f5f5f5; /* Fondo gris claro */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+.avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-right: 15px;
+  border: 2px solid #fff; /* Borde blanco alrededor del avatar */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+.user-name {
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #333; /* Color de texto oscuro */
+}
+
+/* Estilos para el modo oscuro */
+.dark-mode .user-profile {
+  background-color: #333; /* Fondo oscuro */
+}
+
+.dark-mode .user-name {
+  color: #fff; /* Color de texto claro en modo oscuro */
+}
   
   

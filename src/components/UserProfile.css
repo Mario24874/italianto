@@ -1,0 +1,33 @@
+.user-profile {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #f5f5f5; /* Fondo gris claro */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  }
+  
+  .avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 15px;
+    border: 2px solid #fff; /* Borde blanco alrededor del avatar */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  }
+  
+  .user-name {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #333; /* Color de texto oscuro */
+  }
+  
+  /* Estilos para el modo oscuro */
+  .dark-mode .user-profile {
+    background-color: #333; /* Fondo oscuro */
+  }
+  
+  .dark-mode .user-name {
+    color: #fff; /* Color de texto claro en modo oscuro */
+  }
