@@ -76,8 +76,11 @@ const Settings = () => {
 
       // Genera la URL pública del archivo
       const { publicURL } = supabase.storage.from('avatars').getPublicUrl(data.path);
+      console.log('Public URL:', publicURL); // Depuración
       setProfile({ ...profile, avatar_url: publicURL });
     }
+
+    console.log('Profile before upsert:', profile); // Depuración
 
     const { data, error } = await supabase
       .from('user_profiles')
