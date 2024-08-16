@@ -14,6 +14,10 @@ const UserProfile = () => {
 
   useEffect(() => {
     if (user) {
+      const storedAvatarUrl = localStorage.getItem('avatar_url');
+      if (storedAvatarUrl) {
+        setProfile(prevProfile => ({ ...prevProfile, avatar_url: storedAvatarUrl }));
+      }
       fetchProfile();
     }
   }, [user]);
@@ -29,6 +33,7 @@ const UserProfile = () => {
       console.error(error.message);
     } else {
       setProfile(data);
+      localStorage.setItem('avatar_url', data.avatar_url); // Almacenar la URL del avatar
     }
     setLoading(false);
   };
