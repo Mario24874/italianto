@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { supabase } from '../supabaseClient';
 import './UserProfile.css';
+import defaultAvatar from '../assets/default-avatar.png'; // Importa la imagen de avatar por defecto
 
 const UserProfile = () => {
   const { user } = useAuth();
@@ -42,8 +43,10 @@ const UserProfile = () => {
 
   return (
     <div className="user-profile">
-      <img src={profile.avatar_url || '/default-avatar.png'} alt="Avatar" className="avatar" />
-      <span className="user-name">{profile.full_name || 'Guest'}</span>
+      <img src={profile.avatar_url || defaultAvatar} alt="Avatar" className="avatar" />
+      <span className="user-name">
+        {profile.full_name || 'Configura il tuo profilo su Impostazioni'}
+      </span>
     </div>
   );
 };
