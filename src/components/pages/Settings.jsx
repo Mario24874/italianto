@@ -35,11 +35,7 @@ const Settings = () => {
       .single(); // Asegúrate de usar .single() para obtener un solo objeto
 
     if (error) {
-      if (error.code === 'PGRST116') { // No rows returned
-        setError('Per favore, configura il tuo profilo su Impostazioni');
-      } else {
-        setError(error.message);
-      }
+      setError(error.message);
     } else {
       setProfile({ ...data, id: data.id || user.id }); // Asegúrate de que el id esté inicializado correctamente
     }
@@ -50,11 +46,26 @@ const Settings = () => {
     setProfile({ ...profile, [e.target.name]: e.target.value });
   };
 
-  const handleFileChange = (e) => {
+  const handleFileChange = async (e) => {
     const file = e.target.files[0];
     if (file && (file.type === 'image/jpeg' || file.type === 'image/png')) {
       setAvatarFile(file);
       setProfile({ ...profile, avatar_url: URL.createObjectURL(file) });
+
+      const { data, error } = await supabase.storage
+        .from('avatars')
+        .upload(`public/${file.name}`, file, {
+          cacheControl: '3600',
+          upsert: false
+        });
+
+      if (error) {
+        console.error('Error al subir el archivo:', error);
+      } else {
+        const { publicURL } = supabase.storage.from('avatars').getPublicUrl(data.path);
+        console.log('Public URL:', publicURL);
+        setProfile({ ...profile, avatar_url: publicURL });
+      }
     } else {
       setError('Please upload a valid image file (jpg or png).');
     }
@@ -63,26 +74,6 @@ const Settings = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-
-    if (avatarFile) {
-      const { data, error } = await supabase.storage
-        .from('avatars')
-        .upload(`public/${avatarFile.name}`, avatarFile, {
-          cacheControl: '3600',
-          upsert: false
-        });
-
-      if (error) {
-        setError(error.message);
-        setLoading(false);
-        return;
-      }
-
-      // Genera la URL pública del archivo
-      const { publicURL } = supabase.storage.from('avatars').getPublicUrl(data.path);
-      console.log('Public URL:', publicURL); // Depuración
-      setProfile({ ...profile, avatar_url: publicURL });
-    }
 
     console.log('Profile before upsert:', profile); // Depuración
 
