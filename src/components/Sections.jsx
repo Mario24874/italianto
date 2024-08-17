@@ -36,6 +36,7 @@ const Sections = () => {
     if (error) {
       console.error('Error al obtener avatares:', error);
     } else {
+      console.log('Avatares obtenidos:', data); // Depuración
       const avatarsMap = {};
       data.forEach(profile => {
         avatarsMap[profile.user_id] = profile.avatar_url;
@@ -50,6 +51,10 @@ const Sections = () => {
       commentsEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [commenti]);
+
+  useEffect(() => {
+    console.log('Avatares actualizados:', avatars); // Depuración
+  }, [avatars]);
 
   return (
     <div className="sections-container">
