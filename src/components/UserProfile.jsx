@@ -11,6 +11,7 @@ const UserProfile = () => {
     full_name: ''
   });
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (user) {
@@ -30,10 +31,14 @@ const UserProfile = () => {
       .single();
 
     if (error) {
-      console.error(error.message);
+      if (error.code === 'PGRST116') { // No rows returned
+        setError('Per favore, configura il tuo profilo su Impostazioni');
+      } else {
+        setError(error.message);
+      }
     } else {
-      setProfile(data);
-      localStorage.setItem('avatar_url', data.avatar_url); // Almacenar la URL del avatar
+      setProfile(data || { avatar_url: '', full_name: '' });
+      localStorage.setItem('avatar_url', data?.avatar_url || ''); // Almacenar la URL del avatar
     }
     setLoading(false);
   };
@@ -48,6 +53,7 @@ const UserProfile = () => {
 
   return (
     <div className="user-profile">
+      {error && <p className="error">{error}</p>}
       <img src={profile.avatar_url || defaultAvatar} alt="Avatar" className="avatar" />
       <span className="user-name">
         {profile.full_name || 'Configura il tuo profilo su Impostazioni'}

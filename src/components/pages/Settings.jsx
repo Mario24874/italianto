@@ -35,7 +35,11 @@ const Settings = () => {
       .single(); // Asegúrate de usar .single() para obtener un solo objeto
 
     if (error) {
-      setError(error.message);
+      if (error.code === 'PGRST116') { // No rows returned
+        setError('Per favore, configura il tuo profilo su Impostazioni');
+      } else {
+        setError(error.message);
+      }
     } else {
       setProfile({ ...data, id: data.id || user.id }); // Asegúrate de que el id esté inicializado correctamente
     }
@@ -107,7 +111,7 @@ const Settings = () => {
           <div className="profile-card">
             <img src={profile.avatar_url || '/default-avatar.png'} alt="Profile" width="100" />
             <div>
-              <h3>{profile.full_name || 'Guest'}</h3>
+              <h3>{profile.full_name || 'Configura il tuo profilo su Impostazioni'}</h3>
               <p>{profile.email}</p>
               {/* Mostrar otros datos del perfil */}
             </div>
