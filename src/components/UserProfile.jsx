@@ -15,10 +15,6 @@ const UserProfile = () => {
 
   useEffect(() => {
     if (user) {
-      const storedAvatarUrl = localStorage.getItem('avatar_url');
-      if (storedAvatarUrl) {
-        setProfile(prevProfile => ({ ...prevProfile, avatar_url: storedAvatarUrl }));
-      }
       fetchProfile();
     }
   }, [user]);

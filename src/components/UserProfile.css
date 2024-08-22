@@ -1,10 +1,10 @@
 .user-profile {
-    display: flex;
+    display: flex;   
     align-items: center;
     margin-bottom: 20px;
     padding: 10px;
     border-radius: 8px;
-    background-color: #f5f5f5; /* Fondo gris claro */
+    background-color: #c9bebea6; /* Fondo gris claro */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
   }
   
@@ -25,7 +25,7 @@
   
   /* Estilos para el modo oscuro */
   .dark-mode .user-profile {
-    background-color: #333; /* Fondo oscuro */
+    background-color: #333c; /* Fondo oscuro */
   }
   
   .dark-mode .user-name {

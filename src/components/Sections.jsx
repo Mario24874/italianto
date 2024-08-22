@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { supabase } from '../supabaseClient';
 import './Sections.css';
@@ -6,13 +6,12 @@ import './Sections.css';
 const Sections = () => {
   const { user } = useAuth();
   const [commenti, setCommenti] = useState([]);
-  const [avatars, setAvatars] = useState({});
-  const commentsEndRef = useRef(null);
+  const [userProfiles, setUserProfiles] = useState({});
 
   useEffect(() => {
     fetchCommenti();
   }, []);
-  
+
   const fetchCommenti = async () => {
     const { data, error } = await supabase
       .from('commenti')
@@ -23,53 +22,51 @@ const Sections = () => {
       console.error('Error al obtener comentarios:', error);
     } else {
       setCommenti(data);
-      fetchAvatars(data.map(comment => comment.user_id));
+      fetchUserProfiles(data.map(comment => comment.user_id));
     }
   };
 
-  const fetchAvatars = async (userIds) => {
+  const fetchUserProfiles = async (userIds) => {
     const { data, error } = await supabase
       .from('user_profiles')
-      .select('user_id, avatar_url')
+      .select('user_id, avatar_url, full_name')
       .in('user_id', userIds);
 
     if (error) {
-      console.error('Error al obtener avatares:', error);
+      console.error('Error al obtener perfiles de usuario:', error);
     } else {
-      console.log('Avatares obtenidos:', data); // Depuración
-      const avatarsMap = {};
+      const profilesMap = {};
       data.forEach(profile => {
-        avatarsMap[profile.user_id] = profile.avatar_url;
+        profilesMap[profile.user_id] = profile;
       });
-      setAvatars(avatarsMap);
+      setUserProfiles(profilesMap);
     }
   };
 
-  useEffect(() => {
-    console.log('Commenti aggiornati:', commenti);
-    if (commentsEndRef.current) {
-      commentsEndRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, [commenti]);
-
-  useEffect(() => {
-    console.log('Avatares actualizados:', avatars); // Depuración
-  }, [avatars]);
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString(); // Esto mostrará solo el día, mes y año
+  };
 
   return (
     <div className="sections-container">
       <h2>Commenti degli Utenti</h2>
       <div className="commenti-list">
-        {commenti.map((commento) => (
-          <div key={commento.id} className="commento">
-            <img src={avatars[commento.user_id] || '/default-avatar.png'} alt="Avatar" className="avatar" />
-            <p className="commento-text">{commento.commento}</p>
-            <p className="meta">
-              {new Date(commento.created_at).toLocaleString()}
-            </p>
-          </div>
-        ))}
-        <div ref={commentsEndRef} />
+        {commenti.map((commento) => {
+          const profile = userProfiles[commento.user_id] || {};
+          return (
+            <div key={commento.id} className="commento">
+              <img src={profile.avatar_url || '/default-avatar.png'} alt="Avatar" className="avatar" />
+              <div className="commento-content">
+                <p className="commento-text">{commento.commento}</p>
+                <p className="meta">
+                  <span className="user-name">{profile.full_name || 'Utente Anonimo'}</span>
+                  <span className="date">{formatDate(commento.created_at)}</span>
+                </p>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
