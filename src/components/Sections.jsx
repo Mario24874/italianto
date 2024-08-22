@@ -56,11 +56,13 @@ const Sections = () => {
           const profile = userProfiles[commento.user_id] || {};
           return (
             <div key={commento.id} className="commento">
-              <img src={profile.avatar_url || '/default-avatar.png'} alt="Avatar" className="avatar" />
+              <div className="avatar-container">
+                <img src={profile.avatar_url || '/default-avatar.png'} alt="Avatar" className="avatar" />
+                <span className="user-name">{profile.full_name || 'Utente Anonimo'}</span>
+              </div>
               <div className="commento-content">
                 <p className="commento-text">{commento.commento}</p>
                 <p className="meta">
-                  <span className="user-name">{profile.full_name || 'Utente Anonimo'}</span>
                   <span className="date">{formatDate(commento.created_at)}</span>
                 </p>
               </div>

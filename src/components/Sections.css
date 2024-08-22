@@ -89,3 +89,17 @@
 .App.dark-mode .commento .meta {
   color: #cccccc;
 }
+
+/* Estilos adicionales para mostrar el nombre al lado del avatar */
+.commento .user-info .avatar-container {
+  display: flex;
+  align-items: center;
+}
+
+.commento .user-info .avatar-container .avatar {
+  margin-right: 10px;
+}
+
+.commento .user-info .avatar-container .full-name {
+  font-weight: bold;
+}
