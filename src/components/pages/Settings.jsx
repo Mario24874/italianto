@@ -28,16 +28,27 @@ const Settings = () => {
   }, []);
 
   const fetchProfile = async () => {
-    const { data, error } = await supabase
-      .from('user_profiles')
-      .select('*')
-      .eq('user_id', user.id)
-      .single(); // Asegúrate de usar .single() para obtener un solo objeto
+    const response = await fetch('https://<your-supabase-url>/functions/v1/getUserProfiles', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer <your-supabase-anon-key>'
+      },
+      body: JSON.stringify({ userIds: [user.id] })
+    });
 
-    if (error) {
-      setError(error.message);
+    if (!response.ok) {
+      const errorMessage = await response.text();
+      setError(errorMessage);
+      setLoading(false);
+      return;
+    }
+
+    const data = await response.json();
+    if (data.length > 0) {
+      setProfile(data[0]);
     } else {
-      setProfile({ ...data, id: data.id || user.id }); // Asegúrate de que el id esté inicializado correctamente
+      setError('Per favore, configura il tuo profilo su Impostazioni');
     }
     setLoading(false);
   };

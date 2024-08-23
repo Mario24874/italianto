@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { supabase } from '../supabaseClient';
 import './UserProfile.css';
 import defaultAvatar from '../assets/default-avatar.png'; // Importa la imagen de avatar por defecto
 
@@ -20,21 +19,27 @@ const UserProfile = () => {
   }, [user]);
 
   const fetchProfile = async () => {
-    const { data, error } = await supabase
-      .from('user_profiles')
-      .select('avatar_url, full_name')
-      .eq('user_id', user.id)
-      .single();
+    const response = await fetch('https://<your-supabase-url>/functions/v1/getUserProfiles', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer <your-supabase-anon-key>'
+      },
+      body: JSON.stringify({ userIds: [user.id] })
+    });
 
-    if (error) {
-      if (error.code === 'PGRST116') { // No rows returned
-        setError('Per favore, configura il tuo profilo su Impostazioni');
-      } else {
-        setError(error.message);
-      }
+    if (!response.ok) {
+      const errorMessage = await response.text();
+      setError(errorMessage);
+      setLoading(false);
+      return;
+    }
+
+    const data = await response.json();
+    if (data.length > 0) {
+      setProfile(data[0]);
     } else {
-      setProfile(data || { avatar_url: '', full_name: '' });
-      localStorage.setItem('avatar_url', data?.avatar_url || ''); // Almacenar la URL del avatar
+      setError('Per favore, configura il tuo profilo su Impostazioni');
     }
     setLoading(false);
   };
